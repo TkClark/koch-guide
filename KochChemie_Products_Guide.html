@@ -1,0 +1,3108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koch Chemie 考赫化学产品使用说明</title>
+    <!-- iOS PWA (添加到主屏幕) 必备标签 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="考赫产品指南">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --red: #f40034;
+            --yellow: #ffcb00;
+            --green: #92d400;
+            --cyan: #00c7b2;
+            --blue: #009fda;
+            --purple: #c53684;
+            --orange: #ff5800;
+            --gray: #9b9b9b;
+            --black: #020a0a;
+            --olive: #807454;
+            --white: #ffffff;
+            --bg-color: #f5f7fa;
+            --card-bg: #ffffff;
+            --text-primary: #2c3e50;
+            --text-secondary: #7f8c8d;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1d1d1b 0%, #2c3e50 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .header-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            padding: 30px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .legend-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .legend-item.active {
+            box-shadow: 0 0 0 3px #1d1d1b;
+        }
+
+        .legend-color {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+        }
+
+        .legend-item[data-color="red"] .legend-color {
+            background: var(--red);
+        }
+
+        .legend-item[data-color="yellow"] .legend-color {
+            background: var(--yellow);
+        }
+
+        .legend-item[data-color="green"] .legend-color {
+            background: var(--green);
+        }
+
+        .legend-item[data-color="cyan"] .legend-color {
+            background: var(--cyan);
+        }
+
+        .legend-item[data-color="blue"] .legend-color {
+            background: var(--blue);
+        }
+
+        .legend-item[data-color="purple"] .legend-color {
+            background: var(--purple);
+        }
+
+        .legend-item[data-color="orange"] .legend-color {
+            background: var(--orange);
+        }
+
+        .legend-item[data-color="gray"] .legend-color {
+            background: var(--gray);
+        }
+
+        .legend-item[data-color="black"] .legend-color {
+            background: var(--black);
+        }
+
+        .legend-item[data-color="olive"] .legend-color {
+            background: var(--olive);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .category-section {
+            margin-bottom: 50px;
+        }
+
+        .category-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #e0e0e0;
+        }
+
+        .category-color-bar {
+            width: 8px;
+            height: 40px;
+            border-radius: 4px;
+        }
+
+        .category-title h2 {
+            font-size: 1.8rem;
+            color: var(--text-primary);
+        }
+
+        .category-title span {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-left: 4px solid transparent;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .product-card[data-color="red"] {
+            border-left-color: var(--red);
+        }
+
+        .product-card[data-color="yellow"] {
+            border-left-color: var(--yellow);
+        }
+
+        .product-card[data-color="green"] {
+            border-left-color: var(--green);
+        }
+
+        .product-card[data-color="cyan"] {
+            border-left-color: var(--cyan);
+        }
+
+        .product-card[data-color="blue"] {
+            border-left-color: var(--blue);
+        }
+
+        .product-card[data-color="purple"] {
+            border-left-color: var(--purple);
+        }
+
+        .product-card[data-color="orange"] {
+            border-left-color: var(--orange);
+        }
+
+        .product-card[data-color="gray"] {
+            border-left-color: var(--gray);
+        }
+
+        .product-card[data-color="black"] {
+            border-left-color: var(--black);
+        }
+
+        .product-card[data-color="olive"] {
+            border-left-color: var(--olive);
+        }
+
+        .product-header {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .product-logo {
+            width: 70px;
+            height: 70px;
+            flex-shrink: 0;
+            border-radius: 10px;
+            padding: 5px;
+            background: #f8f9fa;
+            overflow: hidden;
+        }
+
+        .product-logo svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-code {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .product-name {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 4px 0;
+            line-height: 1.3;
+        }
+
+        .product-alias {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .product-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+
+        .product-details {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            font-size: 0.85rem;
+        }
+
+        .detail-item {
+            display: flex;
+            gap: 8px;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: var(--text-primary);
+            min-width: 70px;
+            flex-shrink: 0;
+        }
+
+        .detail-value {
+            color: var(--text-secondary);
+        }
+
+        .ph-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .ph-acid {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .ph-neutral {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .ph-alkaline {
+            background: #fff3e0;
+            color: #ef6c00;
+        }
+
+        .ph-none {
+            background: #f5f5f5;
+            color: #757575;
+        }
+
+        .search-box {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            background: white;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .stats {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .info-notice {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #856404;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+            z-index: 2;
+        }
+
+        .modal-close:hover {
+            background: #e0e0e0;
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 40px;
+        }
+
+        .modal-header-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 20px;
+        }
+
+        .modal-logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f8f9fa;
+        }
+
+        .modal-logo svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .modal-title-info {
+            flex: 1;
+        }
+
+        .modal-code {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .modal-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+            line-height: 1.2;
+        }
+
+        .modal-alias {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        .modal-desc {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--text-primary);
+        }
+
+        .modal-section {
+            margin-bottom: 25px;
+        }
+
+        .modal-section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-section-title::before {
+            content: '';
+            display: block;
+            width: 4px;
+            height: 18px;
+            background: var(--text-primary);
+            border-radius: 2px;
+        }
+
+        .ratio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .ratio-card {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .ratio-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .ratio-value {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .modal-notice {
+            background: #fff3cd;
+            color: #856404;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-left: 4px solid #ffc107;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .legend {
+                gap: 8px;
+            }
+
+            .legend-item {
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .modal-body {
+                padding: 25px;
+            }
+
+            .ratio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-header-section {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <svg class="header-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" fill="#ffffff" />
+            <rect width="100" height="12" fill="#1d1d1b" />
+            <text x="50" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="bold"
+                fill="#1d1d1b">KC</text>
+        </svg>
+        <h1>Koch Chemie 考赫化学</h1>
+        <p>全体系产品使用说明书 · 134 款专业产品</p>
+    </header>
+
+    <div class="search-box">
+        <input type="text" class="search-input" placeholder="🔍 搜索产品名称、用途或编号..." id="searchInput">
+        <div id="noResultsMessage"
+            style="display: none; text-align: center; color: #888; margin-top: 20px; font-size: 16px;">
+            ⚠️ 未查询到相关产品
+        </div>
+    </div>
+
+    <div class="info-notice">
+        <strong>ℹ️ 说明：</strong>配比比例和注意事项为参考值，实际使用请参考产品官方数据表或包装说明。不同产品版本可能有差异。
+    </div>
+
+
+    <div class="legend">
+        <div class="legend-item active" data-color="all">
+            <div class="legend-color" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+            <span>全部 (134)</span>
+        </div>
+        <div class="legend-item" data-color="green">
+            <div class="legend-color"></div>
+            <span>碱性清洁 (Green)</span>
+        </div>
+        <div class="legend-item" data-color="yellow">
+            <div class="legend-color"></div>
+            <span>洗车香波 (Yellow)</span>
+        </div>
+        <div class="legend-item" data-color="red">
+            <div class="legend-color"></div>
+            <span>酸性/轮毂 (Red)</span>
+        </div>
+        <div class="legend-item" data-color="orange">
+            <div class="legend-color"></div>
+            <span>溶剂/除胶 (Orange)</span>
+        </div>
+        <div class="legend-item" data-color="cyan">
+            <div class="legend-color"></div>
+            <span>内饰塑料 (Cyan)</span>
+        </div>
+        <div class="legend-item" data-color="blue">
+            <div class="legend-color"></div>
+            <span>玻璃清洁 (Blue)</span>
+        </div>
+        <div class="legend-item" data-color="gray">
+            <div class="legend-color"></div>
+            <span>外饰/橡胶 (Gray)</span>
+        </div>
+        <div class="legend-item" data-color="black">
+            <div class="legend-color"></div>
+            <span>抛光研磨 (Black)</span>
+        </div>
+        <div class="legend-item" data-color="purple">
+            <div class="legend-color"></div>
+            <span>香氛系列 (Purple)</span>
+        </div>
+        <div class="legend-item" data-color="olive">
+            <div class="legend-color"></div>
+            <span>驱水/保固 (Olive)</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="stats" id="stats">
+            共 134 款产品
+        </div>
+
+        <!-- 自动生成的10个标准分类 -->
+        <section class="category-section" data-category="green">
+            <div class="category-title">
+                <div class="category-color-bar" style="background: var(--green);"></div>
+                <div>
+                    <h2>碱性清洁剂 / Alkaline cleaners</h2><span>绿标系列 · 核心碱性预洗与全能清洁</span>
+                </div>
+            </div>
+            <div class="products-grid" id="green-products"></div>
+        </section>
+
+        <section class="category-section" data-category="yellow">
+            <div class="category-title">
+                <div class="category-color-bar" style="background: var(--yellow);"></div>
+                <div>
+                    <h2>洗车香波 / Shampoos</h2><span>黄标系列 · 温和与洗车香波</span>
+                </div>
+            </div>
+            <div class="products-grid" id="yellow-products"></div>
+        </section>
+
+        <section class="category-section" data-category="red">
+            <div class="category-title">
+                <div class="category-color-bar" style="background: var(--red);"></div>
+                <div>
+                    <h2>酸性及轮毂清洁 / Acid cleaners & rim cleaners</h2><span>红标系列 · 强效轮毂与漆面酸洗去氧化</span>
+                </div>
+            </div>
+            <div class="products-grid" id="red-products"></div>
+        </section>
+
+        <section class="category-section" data-category="orange">
+            <div class="category-title">
+                <div class="category-color-bar" style="background: var(--orange);"></div>
+                <div>
+                    <h2>溶剂与除胶 / Solvents</h2><span>橙标系列 · 柏油、虫尸、油污等强效溶解</span>
+                </div>
+            </div>
+            <div class="products-grid" id="orange-products"></div>
+        </section>
+
+        <section class="category-section" data-category="cyan">
+            <div class="category-title">
+                <div class="category-color-bar" style="background: var(--cyan);"></div>
+                <div>
+                    <h2>内饰塑料与皮革 / Leather & plastics interior</h2><span>青标系列 · 汽车内部织物、皮革与塑料养护</span>
+                </div>
+            </div>
+            <div class="products-grid" id="cyan-products"></div>
+        </section>
+
+        <section class="category-section" data-category="blue">
+            <div class="category-title">
+                <div class="category-color-bar" style="background: var(--blue);"></div>
+                <div>
+                    <h2>玻璃清洁与水处理 / Glass cleaners & water processing</h2><span>蓝标系列 · 高效玻璃清洁及系统洗车水处理</span>
+                </div>
+            </div>
+            <div class="products-grid" id="blue-products"></div>
+        </section>
+
+        <section class="category-section" data-category="gray">
+            <div class="category-title">
+                <div class="category-color-bar" style="background: var(--gray);"></div>
+                <div>
+                    <h2>外饰橡胶与塑料 / Rubber & plastics external</h2><span>灰标系列 · 车辆外部塑料、橡胶和发动机舱涂层养护</span>
+                </div>
+            </div>
+            <div class="products-grid" id="gray-products"></div>
+        </section>
+
+        <section class="category-section" data-category="black">
+            <div class="category-title">
+                <div class="category-color-bar" style="background: var(--black);"></div>
+                <div>
+                    <h2>抛光与漆面护理 / Body & paint</h2><span>黑标系列 · 漆面研磨剂、抛光垫与镜面封体</span>
+                </div>
+            </div>
+            <div class="products-grid" id="black-products"></div>
+        </section>
+
+        <section class="category-section" data-category="purple">
+            <div class="category-title">
+                <div class="category-color-bar" style="background: var(--purple);"></div>
+                <div>
+                    <h2>香氛系列 / Fragrances</h2><span>紫标系列 · 车内异味消除与高级香氛</span>
+                </div>
+            </div>
+            <div class="products-grid" id="purple-products"></div>
+        </section>
+
+        <section class="category-section" data-category="olive">
+            <div class="category-title">
+                <div class="category-color-bar" style="background: var(--olive);"></div>
+                <div>
+                    <h2>驱水与保固剂 / Driers & conservers</h2><span>橄榄绿标系列 · 洗车房水蜡、漆面驱水与快速镀膜增艳</span>
+                </div>
+            </div>
+            <div class="products-grid" id="olive-products"></div>
+        </section>
+    </div>
+
+    <!-- Modal HTML -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 1L1 13M1 1L13 13" stroke="#2c3e50" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+            <div class="modal-body" id="modalBody">
+                <!-- Data will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 产品数据 - 80款产品，按实际SVG颜色分类
+        const products = [
+
+            {
+                "name": "1K-Nano",
+                "alias": "1K-Nano",
+                "desc": "纳米级单组份长效漆面密封镀膜剂",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "施工后 24 小时绝对不能碰水。",
+                "code": "1K",
+                "color": "black",
+                "svg_file": "1K__1760317201.svg",
+                "pa": "-",
+                "mist": "-",
+                "pure": "直接滴入海绵涂抹",
+                "method": "【官方建议】Nano 级别漆面单组分极长效密封胶。<br><br>【个人经验】镀晶级别的高端施工！漆面必须经过彻底的脱脂（如使用 Euv 或专业脱脂硅胶清除剂）。涂展并等待其泛白起雾后，用大量高克重纤维毛巾收水。提供超过 1 年的丝滑手感和惊人拨水角度。",
+                "bucket": "-"
+            },
+            {
+                "name": "Acid Shampoo A",
+                "alias": "Acid Shampoo A",
+                "desc": "酸性洗车专用香波，适合去除矿物质水渍",
+                "ph": "1.0",
+                "ratio": "-",
+                "notice": "不要在阳光直射下施工作业并让其干燥",
+                "code": "Aa",
+                "color": "yellow",
+                "svg_file": "Aa__1760317201.svg",
+                "pa": "官方参考: 1:10 - 1:30 | 根据脏污程度动态调整",
+                "mist": "-",
+                "pure": "-",
+                "method": "两桶水洗车法：先用高压水枪预冲洗掉大颗粒泥沙。将海绵/洗车手套浸入配比好的香波稀释液中，均匀涂抹车身进行清洗。经常在另一个清水桶中单向揉搓清洗手套以释放沙粒。最后用清水冲洗干净残留泡沫。",
+                "bucket": "官方参考: 1:200 - 1:400"
+            },
+            {
+                "name": "Active Foam",
+                "alias": "Active Foam",
+                "desc": "高起泡预洗香波，具有强效清洁配方",
+                "ph": "8.0 - 9.0",
+                "ratio": "-",
+                "notice": "浓缩配方，按照脏污程度稀释使用",
+                "code": "Af",
+                "color": "yellow",
+                "svg_file": "Af__1760317201.svg",
+                "pa": "官方参考: 1:10 - 1:30 | 根据脏污程度动态调整",
+                "mist": "-",
+                "pure": "-",
+                "method": "使用 PA 壶（泡沫枪）或洗车房发泡设备，将调配好的泡沫液均匀喷洒覆盖全车。让其在表面留置约 3-5 分钟进行反应溶解污垢，之后使用洁净的高压水枪彻底冲洗干净。",
+                "bucket": "-"
+            },
+            {
+                "name": "Active Foam Ocean",
+                "alias": "Active Foam Ocean",
+                "desc": "海洋香氛高起泡泡沫香波，去污温和",
+                "ph": "8.0 - 9.0",
+                "ratio": "-",
+                "notice": "洗车房最爱的高发泡量香波",
+                "code": "Afo",
+                "color": "yellow",
+                "svg_file": "Afo__1760317201.svg",
+                "pa": "官方参考: 1:10 - 1:30 | 根据脏污程度动态调整",
+                "mist": "-",
+                "pure": "-",
+                "method": "使用 PA 壶（泡沫枪）或洗车房发泡设备，将调配好的泡沫液均匀喷洒覆盖全车。让其在表面留置约 3-5 分钟进行反应溶解污垢，之后使用洁净的高压水枪彻底冲洗干净。",
+                "bucket": "-"
+            },
+            {
+                "name": "Active Foam Spring",
+                "alias": "Active Foam Spring",
+                "desc": "春季香氛高发泡洗车香波，浓缩温和",
+                "ph": "8.0 - 9.0",
+                "ratio": "-",
+                "notice": "气味芳香持久",
+                "code": "Afs",
+                "color": "yellow",
+                "svg_file": "Afs__1760317201.svg",
+                "pa": "官方参考: 1:10 - 1:30 | 根据脏污程度动态调整",
+                "mist": "-",
+                "pure": "-",
+                "method": "使用 PA 壶（泡沫枪）或洗车房发泡设备，将调配好的泡沫液均匀喷洒覆盖全车。让其在表面留置约 3-5 分钟进行反应溶解污垢，之后使用洁净的高压水枪彻底冲洗干净。",
+                "bucket": "-"
+            },
+            {
+                "name": "Active Foam X-mas",
+                "alias": "Active Foam X-mas",
+                "desc": "圣诞冷杉香氛高发泡洗车香波（限量版）",
+                "ph": "8.0 - 9.0",
+                "ratio": "-",
+                "notice": "深冬冷杉限量特调气味",
+                "code": "Afx",
+                "color": "yellow",
+                "svg_file": "Afx__1760317201.svg",
+                "pa": "官方参考: 1:10 - 1:30 | 根据脏污程度动态调整",
+                "mist": "-",
+                "pure": "-",
+                "method": "使用 PA 壶（泡沫枪）或洗车房发泡设备，将调配好的泡沫液均匀喷洒覆盖全车。让其在表面留置约 3-5 分钟进行反应溶解污垢，之后使用洁净的高压水枪彻底冲洗干净。",
+                "bucket": "-"
+            },
+            {
+                "name": "Aktivwäsche",
+                "alias": "Aktivwäsche",
+                "desc": "具备极强起泡与去污活性的强效香波",
+                "ph": "9.0 - 10.0",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Aw",
+                "color": "yellow",
+                "svg_file": "Aw__1760317201.svg",
+                "pa": "官方: 1:10 - 1:30",
+                "mist": "-",
+                "pure": "-",
+                "method": "【官方建议】强效清洗配方，极强发泡效力。<br><br>【个人经验】偏酸/碱的复合配方，去污力比 As 更强悍，适用于泥污较重的车。",
+                "bucket": "官方: 1:200 (高起泡)"
+            },
+            {
+                "name": "Alkali Wheel Cleaner",
+                "alias": "Alkali Wheel Cleaner",
+                "desc": "强力碱性轮毂及下裙边清洁剂",
+                "ph": "13.0 - 14.0",
+                "ratio": "-",
+                "notice": "强力反应脱脂清洗，不适用于抛光铝合金面或表面敏感的轮毂。",
+                "code": "Awh",
+                "color": "red",
+                "svg_file": "Awh__1760317201.svg",
+                "pa": "-",
+                "mist": "官方参考: 1:5 - 1:20 | 详见产品背标",
+                "pure": "-",
+                "method": "将产品均匀喷射于需要处理的轮毂或酸洗部位。留置 1-3 分钟，必要时使用轮毂刷或细节刷进行深度辅助清洁。最后必须使用大量高压清水彻底冲洗干净，不可在表面干透。",
+                "bucket": "-"
+            },
+            {
+                "name": "Allround Surface Cleaner",
+                "alias": "全能表面清洁剂",
+                "desc": "室内外通用的去油污去指纹中性表面清洁剂",
+                "ph": "7.0",
+                "ratio": "1:10-1:100",
+                "notice": "通用性极广。",
+                "code": "Asc",
+                "color": "blue",
+                "svg_file": "Asc__1760317201.svg",
+                "pa": "-",
+                "mist": "原液直接喷洒使用",
+                "pure": "-",
+                "method": "【官方建议】喷洒在表面或布上擦拭。<br><br>【个人经验】非常温和的中性即用型清洁剂，甚至能用来擦车内导航屏幕、去除仪表台轻微灰尘指纹，挥发快，不留条纹。",
+                "bucket": "-"
+            },
+            {
+                "name": "Allround Textile Sealant",
+                "alias": "Allround Textile Sealant",
+                "desc": "高级织物与敞篷软顶防水防污封闭保护剂",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "必须在极其干燥的织物上施工，否则由于毛细现象阻止纳米颗粒附着。",
+                "code": "St0.01",
+                "color": "cyan",
+                "svg_file": "St0.01__1760317201.svg",
+                "pa": "-",
+                "mist": "清洁干燥后均匀直线十字喷洒",
+                "pure": "-",
+                "method": "【官方建议】专门用于敞篷软顶和内饰织物的保护镀膜。<br><br>【个人经验】神级产品！能在布料上形成极强的荷叶拒水层，水滴会像水银一样滚落。施工前一定要彻底吸尘并将其用 Po 清洗后晾干！含有刺激性溶剂气味，需戴口罩。",
+                "bucket": "-"
+            },
+            {
+                "name": "Autoshampoo",
+                "alias": "Autoshampoo",
+                "desc": "通用基础手工洗车高泡温和香波",
+                "ph": "9.0",
+                "ratio": "-",
+                "notice": "-",
+                "code": "As",
+                "color": "yellow",
+                "svg_file": "As__1760317201.svg",
+                "pa": "官方: 1:10 - 1:30",
+                "mist": "-",
+                "pure": "-",
+                "method": "【官方建议】非常基础且高泡的手工洗车香波。<br><br>【个人经验】如果是车间大量消耗，性价比极高，起泡极其丰富，没有多余的保护剂成分，后续打蜡或抛光前的绝佳基础正洗液。",
+                "bucket": "官方: 1:200 - 1:400"
+            },
+            {
+                "name": "Cabriodach-Versiegelung",
+                "alias": "软顶镀膜",
+                "desc": "高级敞篷软顶防水镀膜剂",
+                "ph": "-",
+                "ratio": "薄层涂抹",
+                "notice": "软顶材料专用",
+                "code": "Cv",
+                "color": "gray",
+                "svg_file": "Cv__1760317201.svg",
+                "pa": "-",
+                "mist": "官方参考: 薄层涂抹 | 详见产品背标",
+                "pure": "-",
+                "method": "【官方建议】彻底清洁软顶并完全晾干。将产品均匀喷洒在软顶表面，在通风处静置使其完全干燥，产生优异的防水防污效果。避免由于未能完全干燥而减弱防水性能。"
+            },
+            {
+                "name": "Ceramic Allround C0.02",
+                "alias": "Ceramic Allround C0.02",
+                "desc": "具有高度疏水性能的陶瓷镀膜剂",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "C0.02",
+                "color": "black",
+                "svg_file": "C0.02__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "【官方建议】彻底清洗和除铁粉、去油墨。使用涂布巾均匀薄涂，涂抹后闪干约5-6分钟，用干净的纤维布无压力打圈抛光擦去多余残留。确保最初的9天内避免清洗。"
+            },
+            {
+                "name": "Ceramic Body Cb0.01",
+                "alias": "Ceramic Body Cb0.01",
+                "desc": "车漆表面专用陶瓷密封剂",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Cb0.01",
+                "color": "black",
+                "svg_file": "Cb0.01__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "使用海绵涂抹器将产品均匀薄涂在干燥清洁的塑料/橡胶件上。让其吸收，如有未吸收的残余，使用纤维布轻轻擦去。"
+            },
+            {
+                "name": "Ceramic Effect Shampoo",
+                "alias": "陶瓷香波",
+                "desc": "含高性能陶瓷上光成分的修复镀膜洗车液",
+                "ph": "5.5",
+                "ratio": "1:200-1:800",
+                "notice": "不可干透，勿在烈日下洗车。",
+                "code": "Ces",
+                "color": "yellow",
+                "svg_file": "Ces__1760317201.svg",
+                "pa": "-",
+                "mist": "-",
+                "pure": "-",
+                "method": "【官方建议】对于手洗漆面特别温和，清洗的同时补充陶瓷涂层网络。<br><br>【个人经验】这是专为带有镀晶/陶瓷涂层（如 C0.02）的车漆研发的洗车液，能够修复衰退的疏水角。如果配比过浓，冲水时可能会有轻微的发白残留，所以严格遵守 1:200 即可。",
+                "bucket": "官方推荐: 1:200 - 1:800 (建议50ml兑10L水)"
+            },
+            {
+                "name": "Ceramic Rims Cr0.01",
+                "alias": "Ceramic Rims Cr0.01",
+                "desc": "轮毂专用陶瓷涂层密封剂",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Cr0.01",
+                "color": "black",
+                "svg_file": "Cr0.01__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "使用海绵涂抹器将产品均匀薄涂在干燥清洁的塑料/橡胶件上。让其吸收，如有未吸收的残余，使用纤维布轻轻擦去。"
+            },
+            {
+                "name": "Clay Spray",
+                "alias": "Clay 喷雾",
+                "desc": "Lubricant spray for clay bar, silicone-oil-free",
+                "ph": "-",
+                "ratio": "直接使用",
+                "notice": "配合清洁clay使用",
+                "code": "Cls",
+                "color": "blue",
+                "svg_file": "Cls__1760317201.svg",
+                "pure": "直接使用",
+                "pa": "-",
+                "mist": "-",
+                "method": "将原液直接喷射于玻璃表面或喷在专用的鱼鳞格玻璃布上。采用十字交叉法擦拭玻璃，翻转玻璃布的干净面或使用另一条干布进行最后收水擦亮。"
+            },
+            {
+                "name": "Cockpit-Super-Pflege",
+                "alias": "Cockpit-Super-Pflege",
+                "desc": "内饰塑料仪表板防静电高光护理剂",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Csp",
+                "color": "cyan",
+                "svg_file": "Csp__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "将稀释液喷洒在干净的超细纤维布或清洁海绵上，轻轻擦拭内饰塑料、皮革或织物表面。如有必要，可使用马毛刷或者细节刷辅助清洁。最后用微湿的干净纤维布收水擦拭。"
+            },
+            {
+                "name": "Copo Star",
+                "alias": "车间地面清洁剂",
+                "desc": "Workshop floor and industrial cleaner",
+                "ph": "alkaline",
+                "ratio": "1:20-1:200",
+                "notice": "工业用途，地面清洁",
+                "code": "Cs",
+                "color": "green",
+                "svg_file": "Cs__1760317201.svg",
+                "pa": "官方参考: 1:20 | 根据脏污程度动态调整",
+                "mist": "官方参考: 1:20-1:200 | 详见产品背标",
+                "pure": "-",
+                "method": "将稀释后的产品喷洒于待清洁表面（如发动机舱、门铰链处、底盘），短暂留置产生反应，使用长柄硬毛刷或细节刷进行搅动清洗，最后使用高压水枪彻底冲洗。"
+            },
+            {
+                "name": "Copo Star BMP-T",
+                "alias": "预清洁剂 T",
+                "desc": "高效预洗清洁剂 T (BMP 认证)",
+                "ph": "alkaline",
+                "ratio": "1:5-1:20",
+                "notice": "BMP认证产品",
+                "code": "Cst",
+                "color": "green",
+                "svg_file": "Cst__1760317201.svg",
+                "pa": "官方参考: 1:5 | 根据脏污程度动态调整",
+                "mist": "官方参考: 1:5-1:20 | 详见产品背标",
+                "pure": "-",
+                "method": "将稀释后的产品喷洒于待清洁表面（如发动机舱、门铰链处、底盘），短暂留置产生反应，使用长柄硬毛刷或细节刷进行搅动清洗，最后使用高压水枪彻底冲洗。"
+            },
+            {
+                "name": "Duftstoff Apfel",
+                "alias": "苹果香氛",
+                "desc": "Fragrance concentrate Apple",
+                "ph": "-",
+                "ratio": "几滴即可",
+                "notice": "配合香氛系统使用",
+                "code": "Da",
+                "color": "purple",
+                "svg_file": "Da__1760317201.svg",
+                "pa": "-",
+                "mist": "官方参考: 几滴即可 | 详见产品背标",
+                "pure": "-",
+                "method": "根据香氛机设备和环境大小滴入浓缩液，不可直接让原液接触内饰塑料面板以免烧穿漆面，用于空间挥发。"
+            },
+            {
+                "name": "Duftstoff Aqua Marine",
+                "alias": "海洋香氛",
+                "desc": "fragrance concentrate Aqua Marine",
+                "ph": "-",
+                "ratio": "几滴即可",
+                "notice": "清新海洋香调",
+                "code": "Dam",
+                "color": "purple",
+                "svg_file": "Dam__1760317201.svg",
+                "pa": "-",
+                "mist": "官方参考: 几滴即可 | 详见产品背标",
+                "pure": "-",
+                "method": "根据香氛机设备和环境大小滴入浓缩液，不可直接让原液接触内饰塑料面板以免烧穿漆面，用于空间挥发。"
+            },
+            {
+                "name": "Duftstoff Bazooka",
+                "alias": "泡泡糖香氛",
+                "desc": "Fragrance concentrate Bubble-gum",
+                "ph": "-",
+                "ratio": "几滴即可",
+                "notice": "甜美糖果香调",
+                "code": "Db",
+                "color": "purple",
+                "svg_file": "Db__1760317201.svg",
+                "pa": "-",
+                "mist": "官方参考: 几滴即可 | 详见产品背标",
+                "pure": "-",
+                "method": "根据香氛机设备和环境大小滴入浓缩液，不可直接让原液接触内饰塑料面板以免烧穿漆面，用于空间挥发。"
+            },
+            {
+                "name": "Duftstoff Citrone",
+                "alias": "柠檬香氛",
+                "desc": "Fragrance concentrate Lemon",
+                "ph": "-",
+                "ratio": "几滴即可",
+                "notice": "清新柠檬香调",
+                "code": "Dc",
+                "color": "purple",
+                "svg_file": "Dc__1760317201.svg",
+                "pa": "-",
+                "mist": "官方参考: 几滴即可 | 详见产品背标",
+                "pure": "-",
+                "method": "根据香氛机设备和环境大小滴入浓缩液，不可直接让原液接触内饰塑料面板以免烧穿漆面，用于空间挥发。"
+            },
+            {
+                "name": "Duftstoff Cool Stream",
+                "alias": "清风香氛",
+                "desc": "Fragrance concentrate Fresh Breeze",
+                "ph": "-",
+                "ratio": "几滴即可",
+                "notice": "清爽香调",
+                "code": "Dcs",
+                "color": "purple",
+                "svg_file": "Dcs__1760317201.svg",
+                "pa": "-",
+                "mist": "官方参考: 几滴即可 | 详见产品背标",
+                "pure": "-",
+                "method": "根据香氛机设备和环境大小滴入浓缩液，不可直接让原液接触内饰塑料面板以免烧穿漆面，用于空间挥发。"
+            },
+            {
+                "name": "Duftstoff Cotton Blossom",
+                "alias": "Duftstoff Cotton Blossom",
+                "desc": "棉花香氛精华",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Dcb",
+                "color": "purple",
+                "svg_file": "Dcb__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "根据香氛机设备和环境大小滴入浓缩液，不可直接让原液接触内饰塑料面板以免烧穿漆面，用于空间挥发。"
+            },
+            {
+                "name": "Duftstoff Dark Cherry",
+                "alias": "黑樱桃香氛",
+                "desc": "Fragrance concentrate cherry",
+                "ph": "-",
+                "ratio": "几滴即可",
+                "notice": "甜美樱桃香调",
+                "code": "Ddc",
+                "color": "purple",
+                "svg_file": "Ddc__1760317201.svg",
+                "pa": "-",
+                "mist": "官方参考: 几滴即可 | 详见产品背标",
+                "pure": "-",
+                "method": "根据香氛机设备和环境大小滴入浓缩液，不可直接让原液接触内饰塑料面板以免烧穿漆面，用于空间挥发。"
+            },
+            {
+                "name": "Duftstoff Fresh Cotton",
+                "alias": "棉花香氛",
+                "desc": "Fragrance concentrate Spring Freshness",
+                "ph": "-",
+                "ratio": "几滴即可",
+                "notice": "清新棉香调",
+                "code": "Df",
+                "color": "purple",
+                "svg_file": "Df__1760317201.svg",
+                "pa": "-",
+                "mist": "官方参考: 几滴即可 | 详见产品背标",
+                "pure": "-",
+                "method": "根据香氛机设备和环境大小滴入浓缩液，不可直接让原液接触内饰塑料面板以免烧穿漆面，用于空间挥发。"
+            },
+            {
+                "name": "Duftstoff Himbeere",
+                "alias": "覆盆子香氛",
+                "desc": "Fragrance concentrate Raspberry",
+                "ph": "-",
+                "ratio": "几滴即可",
+                "notice": "甜美浆果香调",
+                "code": "Dh",
+                "color": "purple",
+                "svg_file": "Dh__1760317201.svg",
+                "pa": "-",
+                "mist": "官方参考: 几滴即可 | 详见产品背标",
+                "pure": "-",
+                "method": "根据香氛机设备和环境大小滴入浓缩液，不可直接让原液接触内饰塑料面板以免烧穿漆面，用于空间挥发。"
+            },
+            {
+                "name": "Duftstoff Ice Tea",
+                "alias": "檀香香氛",
+                "desc": "Fragrance concentrate Ice Tea",
+                "ph": "-",
+                "ratio": "几滴即可",
+                "notice": "东方木质香调",
+                "code": "Dt",
+                "color": "purple",
+                "svg_file": "Dt__1760317201.svg",
+                "pa": "-",
+                "mist": "官方参考: 几滴即可 | 详见产品背标",
+                "pure": "-",
+                "method": "根据香氛机设备和环境大小滴入浓缩液，不可直接让原液接触内饰塑料面板以免烧穿漆面，用于空间挥发。"
+            },
+            {
+                "name": "Duftstoff Oriental Spirit",
+                "alias": "冰茶香氛",
+                "desc": "Fragrance concentrate sandalwood",
+                "ph": "-",
+                "ratio": "几滴即可",
+                "notice": "清新茶香调",
+                "code": "Dos",
+                "color": "purple",
+                "svg_file": "Dos__1760317201.svg",
+                "pa": "-",
+                "mist": "官方参考: 几滴即可 | 详见产品背标",
+                "pure": "-",
+                "method": "根据香氛机设备和环境大小滴入浓缩液，不可直接让原液接触内饰塑料面板以免烧穿漆面，用于空间挥发。"
+            },
+            {
+                "name": "Duftstoff Tropical",
+                "alias": "Duftstoff Tropical",
+                "desc": "热带水果香氛精华",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Dtr",
+                "color": "purple",
+                "svg_file": "Dtr__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "根据香氛机设备和环境大小滴入浓缩液，不可直接让原液接触内饰塑料面板以免烧穿漆面，用于空间挥发。"
+            },
+            {
+                "name": "Eulex",
+                "alias": "去胶剂",
+                "desc": "极强烈溶解性去胶与涂鸦清洗剂",
+                "ph": "-",
+                "ratio": "直接使用",
+                "notice": "【极度易燃】通风处作业，远离火源，严禁用在屏幕和有机玻璃上！",
+                "code": "Eu",
+                "color": "orange",
+                "svg_file": "Eu__1760317201.svg",
+                "pure": "原液",
+                "pa": "-",
+                "mist": "使用微纤布沾取擦拭，或局部少量喷洒",
+                "method": "【官方建议】用于清除车辆上的严重胶状物、油漆喷雾、树胶等。<br><br>【个人经验】极度易燃、挥发极快的高强度溶剂（有毒性气味）。它能瞬间融化双面胶和柏油点，但如果在非原厂修补漆（或者单组份漆面）上擦拭太久，甚至有可能把清漆给起皱。不可接触亚克力板、不可大面积喷洒。",
+                "bucket": "-"
+            },
+            {
+                "name": "Eulex M",
+                "alias": "去胶剂 M",
+                "desc": "温和配方去胶及沥青清除剂",
+                "ph": "-",
+                "ratio": "直接使用",
+                "notice": "相对 Eu 更为安全温和的配方版本",
+                "code": "Eum",
+                "color": "orange",
+                "svg_file": "Eum__1760317201.svg",
+                "pure": "-",
+                "pa": "-",
+                "mist": "官方参考: 直接喷洒 | 详见产品背标",
+                "method": "直接喷洒于焦油、沥青、树胶或虫尸等顽固污渍上。留置 1-2 分钟（注意观察不可损伤清漆），然后用干净的超细纤维布轻轻擦拭。重度污垢可重复此过程。",
+                "bucket": "-"
+            },
+            {
+                "name": "Eulex V",
+                "alias": "去蜡剂",
+                "desc": "强力除旧蜡硅油及焦油清洗剂",
+                "ph": "-",
+                "ratio": "直接使用",
+                "notice": "用于抛光或镀膜前的强力脱脂准备",
+                "code": "Euv",
+                "color": "orange",
+                "svg_file": "Euv__1760317201.svg",
+                "pure": "-",
+                "pa": "-",
+                "mist": "官方参考: 直接喷洒 | 详见产品背标",
+                "method": "直接喷洒于焦油、沥青、树胶或虫尸等顽固污渍上。留置 1-2 分钟（注意观察不可损伤清漆），然后用干净的超细纤维布轻轻擦拭。重度污垢可重复此过程。",
+                "bucket": "-"
+            },
+            {
+                "name": "Felgenblitz alkalisch",
+                "alias": "清洁 clay 红",
+                "desc": "碱性黏稠配方轮毂强力脱脂清洁液",
+                "ph": "13.0",
+                "ratio": "直接使用",
+                "notice": "强力反应脱脂清洗。",
+                "code": "Fba",
+                "color": "red",
+                "svg_file": "Fba__1760317201.svg",
+                "pure": "-",
+                "pa": "-",
+                "mist": "1:2 到 1:10",
+                "method": "【官方建议】碱性轮毂清洗剂。",
+                "bucket": "-"
+            },
+            {
+                "name": "Felgenblitz säurefrei",
+                "alias": "清洁 clay 蓝",
+                "desc": "中性除铁粉变色配方轮毂清洁液",
+                "ph": "7.5",
+                "ratio": "直接使用",
+                "notice": "安全中性配方，起反应呈紫红色",
+                "code": "Fb",
+                "color": "red",
+                "svg_file": "Fb__1760317201.svg",
+                "pure": "-",
+                "pa": "-",
+                "mist": "官方参考: 直接喷雾 | 详见产品背标",
+                "method": "均匀喷洒在冷却后的轮毂表面。等待 3-5 分钟直至铁粉反应呈现紫红色。对顽固污渍可使用轮毂刷辅助。最后运用高压水流冲洗干净。",
+                "bucket": "-"
+            },
+            {
+                "name": "Felgenreiniger CL",
+                "alias": "轮毂清洁剂 CL",
+                "desc": "洗车房专用酸性强效轮毂及地垫清洗剂",
+                "ph": "1.5",
+                "ratio": "1:5-1:20",
+                "notice": "经济型浓缩酸",
+                "code": "Fcl",
+                "color": "red",
+                "svg_file": "Fcl__1760317201.svg",
+                "pa": "-",
+                "mist": "官方参考: 1:5 - 1:20 | 详见产品背标",
+                "pure": "-",
+                "method": "将产品均匀喷射于需要处理的轮毂或酸洗部位。留置 1-3 分钟，必要时使用轮毂刷或细节刷进行深度辅助清洁。最后必须使用大量高压清水彻底冲洗干净，不可在表面干透。",
+                "bucket": "-"
+            },
+            {
+                "name": "Felgenreiniger K",
+                "alias": "中性轮毂清洁剂",
+                "desc": "各类钢铝全兼容轮毂温和清洁剂",
+                "ph": "8.5",
+                "ratio": "1:3-1:5",
+                "notice": "可兑水使用，适用面极广的维修厂轮毂清洗剂",
+                "code": "Fk",
+                "color": "red",
+                "svg_file": "Fk__1760317201.svg",
+                "pa": "-",
+                "mist": "官方参考: 1:3 - 1:5 | 详见产品背标",
+                "pure": "-",
+                "method": "均匀喷洒在冷却后的轮毂表面。等待 3-5 分钟直至铁粉反应呈现紫红色。对顽固污渍可使用轮毂刷辅助。最后运用高压水流冲洗干净。",
+                "bucket": "-"
+            },
+            {
+                "name": "Felgenreiniger K viskos",
+                "alias": "中性轮毂闪电",
+                "desc": "高黏附性钢铝与不锈钢轮毂清洁液",
+                "ph": "8.5",
+                "ratio": "直接使用",
+                "notice": "黏稠液体能够长时挂壁反应",
+                "code": "Fkv",
+                "color": "red",
+                "svg_file": "Fkv__1760317201.svg",
+                "pure": "-",
+                "pa": "-",
+                "mist": "官方参考: 直接喷雾 | 详见产品背标",
+                "method": "均匀喷洒在冷却后的轮毂表面。等待 3-5 分钟直至铁粉反应呈现紫红色。对顽固污渍可使用轮毂刷辅助。最后运用高压水流冲洗干净。",
+                "bucket": "-"
+            },
+            {
+                "name": "Felgenreiniger extrem",
+                "alias": "强力轮毂清洁剂",
+                "desc": "酸性极强效轮毂清洁及氧化层水垢去除剂",
+                "ph": "1.0",
+                "ratio": "直接使用",
+                "notice": "【极度危险】腐蚀金属，伤手，切勿在高温轮毂作业！",
+                "code": "Fe",
+                "color": "red",
+                "svg_file": "Fe__1760317201.svg",
+                "pure": "-",
+                "pa": "-",
+                "mist": "不建议兑水，原液或 1:3 喷洒",
+                "method": "【官方建议】喷洒在轮毂腐蚀处，最长停留 1 分钟，必须彻底冲洗。<br><br>【个人经验】极致的强酸（PH 1.0），不要随意购买和使用。仅用于重度烧结、几年没洗过发黄发黑的轮毂。必须带手套和口罩！洗完立刻用大量水冲，并建议用碱性清洁剂（如 Gs）中和酸性。",
+                "bucket": "-"
+            },
+            {
+                "name": "Fine Cut F6.01",
+                "alias": "细研磨剂",
+                "desc": "F6.01 中切削精细抛光剂（无硅油）",
+                "ph": "-",
+                "ratio": "直接使用",
+                "notice": "-",
+                "code": "F6.01",
+                "color": "black",
+                "svg_file": "F6.01__1760317201.svg",
+                "pure": "搭配中切海绵盘",
+                "pa": "-",
+                "mist": "-",
+                "method": "【官方建议】中度切削与提亮（黄色盘）。<br><br>【个人经验】非常均衡的一步抛光剂，不仅能去中度太阳纹，且收光效果极其明艳，如果车况不差，单次使用 F6.01 即可实现完美的纠正+高光。",
+                "bucket": "-"
+            },
+            {
+                "name": "Finish Spray exterior",
+                "alias": "Finish Spray exterior",
+                "desc": "包含水垢去除功效的漆面快速光亮隔离剂（快速QD）",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "由于含有轻微酸性，不要在烈日高温漆面使用。",
+                "code": "Fse",
+                "color": "black",
+                "svg_file": "Fse__1760317201.svg",
+                "pa": "",
+                "mist": "即用型喷雾",
+                "pure": "-",
+                "method": "【官方建议】含酸性去水垢添加剂的快速完工光亮 QD (Quick Detailer)。<br><br>【个人经验】这是洗车后的收水神器。如果车身在冲水后留下了轻微硬水垢，直接喷洒 Fse 到车面配合干毛巾擦拭，不仅瞬间瓦解水渍，还能极大幅度拉升漆面滑度和亮度。"
+            },
+            {
+                "name": "Fleckenwasser",
+                "alias": "去渍水",
+                "desc": "Stain and wax remover",
+                "ph": "-",
+                "ratio": "直接使用",
+                "notice": "纺织品专用",
+                "code": "Fw",
+                "color": "orange",
+                "svg_file": "Fw__1760317201.svg",
+                "pure": "直接使用",
+                "pa": "-",
+                "mist": "-",
+                "method": "直接喷洒于焦油、沥青、树胶或虫尸等顽固污渍上。留置 1-2 分钟（注意观察不可损伤清漆），然后用干净的超细纤维布轻轻擦拭。重度污垢可重复此过程。"
+            },
+            {
+                "name": "Flugrostentferner BMP",
+                "alias": "浮锈去除剂 BMP",
+                "desc": "Rust bloom remover, highly concentrated",
+                "ph": "acid",
+                "ratio": "1:5-1:20",
+                "notice": "BMP认证",
+                "code": "Flb",
+                "color": "red",
+                "svg_file": "Flb__1760317201.svg",
+                "pa": "官方参考: 1:5 | 根据脏污程度动态调整",
+                "mist": "官方参考: 1:5-1:20 | 详见产品背标",
+                "pure": "-",
+                "method": "均匀喷洒在冷却后的轮毂表面。等待 3-5 分钟直至铁粉反应呈现紫红色。对顽固污渍可使用轮毂刷辅助。最后运用高压水流冲洗干净。"
+            },
+            {
+                "name": "Fresh Up",
+                "alias": "除臭剂",
+                "desc": "车内空间除臭异味消除剂",
+                "ph": "-",
+                "ratio": "直接喷洒",
+                "notice": "去除异味源",
+                "code": "Fu",
+                "color": "purple",
+                "svg_file": "Fu__1760317201.svg",
+                "pure": "直接喷洒",
+                "pa": "-",
+                "mist": "-",
+                "method": "根据香氛机设备和环境大小滴入浓缩液，不可直接让原液接触内饰塑料面板以免烧穿漆面，用于空间挥发。"
+            },
+            {
+                "name": "Gentle Snow Foam",
+                "alias": "温和雪泡",
+                "desc": "中性温和高发泡雪花预洗香波",
+                "ph": "7.5",
+                "ratio": "1:10-1:100",
+                "notice": "【注意】避免在阳光直射下洗车，绝不能让泡沫在漆面上干透。",
+                "code": "Gsf",
+                "color": "yellow",
+                "svg_file": "Gsf__1760317201.svg",
+                "pa": "官方推荐: 1:10 (产生浓密雪泡) | 个人经验: 1:15 - 1:20 足以产生极佳挂壁泡沫，配合温水效果更好。",
+                "mist": "-",
+                "pure": "-",
+                "method": "【官方建议】使用 PA 壶均匀喷洒全车，停留 3-5 分钟后高压冲洗；或作为正洗香波使用，配合超细纤维手套擦拭。<br><br>【个人经验】Gsf 呈中性，去污力中等。对于重度污垢（如泥泞或飞虫），建议在 PA 壶中加入 10-30ml 的 Green Star (Gs) 混合打发，此为全球著名的 \"Active Snow Foam\" (活化雪花) 玩法，可极大提升预洗脱脂破坏力，同时保留 Gsf 的超强挂壁性。",
+                "bucket": "官方推荐: 1:200 (50ml兑10L水) | 个人经验: 1:300 润滑度依然极高，非常省液。"
+            },
+            {
+                "name": "Gentle Snow Foam X-Mas",
+                "alias": "温和雪泡X",
+                "desc": "圣诞限量版红色雪泡中性预洗香波",
+                "ph": "7.5",
+                "ratio": "1:10-1:100",
+                "notice": "彩色泡沫请注意冲洗地面残留。",
+                "code": "Gfx",
+                "color": "yellow",
+                "svg_file": "Gfx__1760317201.svg",
+                "pa": "官方推荐: 1:10 | 个人经验: 1:15即可，产生红色樱桃味泡沫。",
+                "mist": "-",
+                "pure": "-",
+                "method": "【官方建议】同样适用于 PA 预洗和两桶水正洗。<br><br>【个人经验】与 Gsf 性能完全一致，纯粹为了视觉和嗅觉享受。由于泡沫呈红色，请注意不要让其长时间流淌在未经密封的浅色水泥或多孔瓷砖地面上，否则可能留下些许染色痕迹。",
+                "bucket": "官方推荐: 1:200"
+            },
+            {
+                "name": "Glanztrockner V",
+                "alias": "Glanztrockner V",
+                "desc": "光泽蜡水",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Gv",
+                "color": "olive",
+                "svg_file": "Gv__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "将产品滴在涂布海绵或超细纤维涂抹布上，以十字划圈方式均匀薄涂于车漆表面。依据室内温度和湿度等待数分钟至其表面闪现或半干起雾状态，随后用高克重柔软纤维布擦亮收水。"
+            },
+            {
+                "name": "Glanzwachsshampoo",
+                "alias": "光泽蜡洗车液",
+                "desc": "",
+                "ph": "neutral",
+                "ratio": "1:200-1:500",
+                "notice": "洗车同时上蜡",
+                "code": "Gw",
+                "color": "yellow",
+                "svg_file": "Gw__1760317201.svg",
+                "pa": "官方参考: 1:200 | 根据脏污程度动态调整",
+                "mist": "官方参考: 1:200-1:500 | 详见产品背标",
+                "pure": "-",
+                "method": "两桶水洗车法：先用高压水枪预冲洗掉大颗粒泥沙。将海绵/洗车手套浸入配比好的香波稀释液中，均匀涂抹车身进行清洗。经常在另一个清水桶中单向揉搓清洗手套以释放沙粒。最后用清水冲洗干净残留泡沫。"
+            },
+            {
+                "name": "Glas Star",
+                "alias": "玻璃之星",
+                "desc": "Glass cleaner concentrate, premium",
+                "ph": "neutral",
+                "ratio": "1:10-1:100",
+                "notice": "不起雾配方",
+                "code": "Gla",
+                "color": "blue",
+                "svg_file": "Gla__1760317201.svg",
+                "pa": "官方参考: 1:10 | 根据脏污程度动态调整",
+                "mist": "官方参考: 1:10-1:100 | 详见产品背标",
+                "pure": "-",
+                "method": "将原液直接喷射于玻璃表面或喷在专用的鱼鳞格玻璃布上。采用十字交叉法擦拭玻璃，翻转玻璃布的干净面或使用另一条干布进行最后收水擦亮。"
+            },
+            {
+                "name": "Glass Cleaner",
+                "alias": "玻璃清洁剂",
+                "desc": "Glass cleaner Pro",
+                "ph": "neutral",
+                "ratio": "1:10-1:50",
+                "notice": "专业级清洁",
+                "code": "Gc",
+                "color": "blue",
+                "svg_file": "Gc__1760317201.svg",
+                "pa": "官方参考: 1:10 | 根据脏污程度动态调整",
+                "mist": "官方参考: 1:10-1:50 | 详见产品背标",
+                "pure": "-",
+                "method": "将原液直接喷射于玻璃表面或喷在专用的鱼鳞格玻璃布上。采用十字交叉法擦拭玻璃，翻转玻璃布的干净面或使用另一条干布进行最后收水擦亮。"
+            },
+            {
+                "name": "Golden Star",
+                "alias": "金色引擎清洁剂",
+                "desc": "Engine cleaner, contains solvents",
+                "ph": "alkaline",
+                "ratio": "1:5-1:10",
+                "notice": "不可用于漆面",
+                "code": "Gol",
+                "color": "orange",
+                "svg_file": "Gol__1760317201.svg",
+                "pa": "官方参考: 1:5 | 根据脏污程度动态调整",
+                "mist": "官方参考: 1:5-1:10 | 详见产品背标",
+                "pure": "-",
+                "method": "直接喷洒于焦油、沥青、树胶或虫尸等顽固污渍上。留置 1-2 分钟（注意观察不可损伤清漆），然后用干净的超细纤维布轻轻擦拭。重度污垢可重复此过程。"
+            },
+            {
+                "name": "Green Star",
+                "alias": "绿色之星",
+                "desc": "多用途强碱性全能清洁剂（APC王者）",
+                "ph": "12.5",
+                "ratio": "1:10-1:100",
+                "notice": "【警告】PH值高达12.5，呈强碱性，脱脂力极强。绝对禁止在漆面干透，可能腐蚀无保护的阳极氧化铝（如奥迪/奔驰的亮银窗框条）。使用上限比例不超过 1:3。",
+                "code": "Gs",
+                "color": "green",
+                "svg_file": "Gs__1760317201.svg",
+                "pa": "-",
+                "mist": "官方推荐 - 外部/发动机舱: 1:5 到 1:30 | 塑料/内饰: 1:10 到 1:20",
+                "pure": "-",
+                "method": "【官方建议】将稀释液喷洒在表面，静置极短时间，如有必要配合刷子搅动，随后高压冲洗。<br><br>【个人经验】Koch-Chemie 最畅销的全能清洁剂 (APC)。<br>1. 预洗脱脂: 以 1:15 喷射全车底部和死角，溶解交通膜。<br>2. 轮胎/轮拱清洁: 1:5 喷雾，配合硬毛刷清洗轮胎橡胶至无棕色泡沫释放。<br>3. 发动机舱: 1:5 混合，喷洒后用细节刷刷洗。<br>混合 Gsf 更是无敌预洗组合。",
+                "bucket": "-"
+            },
+            {
+                "name": "Green Star BMP",
+                "alias": "Green Star BMP",
+                "desc": "绿色之星 BMP 柔和碱性加强版",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "依然避免干涸。",
+                "code": "Gsb",
+                "color": "green",
+                "svg_file": "Gsb__1760317201.svg",
+                "pa": "",
+                "mist": "官方推荐: 1:10 - 1:50",
+                "pure": "-",
+                "method": "【官方建议】带有抑制剂的特别版 Gs。<br><br>【个人经验】在敏感材质（如特殊铝材）上比标准版 Gs 更安全。"
+            },
+            {
+                "name": "Gummi- & Kunststoffpflege glänzend",
+                "alias": "光泽塑料护理",
+                "desc": "外部塑料件高光养护剂",
+                "ph": "-",
+                "ratio": "直接使用",
+                "notice": "需让其充分吸收，抹去多余残液避免招惹灰尘。",
+                "code": "Gkg",
+                "color": "gray",
+                "svg_file": "Gkg__1760317201.svg",
+                "pure": "挤在海绵条或细纤维涂抹器上施工",
+                "pa": "-",
+                "mist": "-",
+                "method": "【官方建议】专门护理外部未喷漆的塑料部件和橡胶密封条。<br><br>【个人经验】对于老旧泛白龟裂的外饰塑料件（如 SUV 的黑色轮眉），这简直是染黑修复神器。提供极具深邃质感的高光恢复，且具备一定的耐清洗能力。"
+            },
+            {
+                "name": "Gummi-, Kunststoff- & Vinylpflege",
+                "alias": "橡胶塑料护理",
+                "desc": "外部橡胶与塑料件长效养护剂",
+                "ph": "-",
+                "ratio": "直接使用",
+                "notice": "涂抹前需用 Gs 彻底除油。",
+                "code": "Gkv",
+                "color": "gray",
+                "svg_file": "Gkv__1760317201.svg",
+                "pure": "使用海绵均匀涂抹",
+                "pa": "-",
+                "mist": "-",
+                "method": "【官方建议】类似于 Gkg，但是配方提供更长效的交联保护并带有些微色泽恢复功能。<br><br>【个人经验】用于外部塑料的长效抗 UV 封边。"
+            },
+            {
+                "name": "Gummifix",
+                "alias": "Gummifix",
+                "desc": "内饰塑料哑光防滑养护剂",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Guf",
+                "color": "cyan",
+                "svg_file": "Guf__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "将稀释液喷洒在干净的超细纤维布或清洁海绵上，轻轻擦拭内饰塑料、皮革或织物表面。如有必要，可使用马毛刷或者细节刷辅助清洁。最后用微湿的干净纤维布收水擦拭。"
+            },
+            {
+                "name": "Hallenreiniger mild-sauer",
+                "alias": "Hallenreiniger mild-sauer",
+                "desc": "车间及不锈钢件温和酸性清洁剂",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Hrm",
+                "color": "red",
+                "svg_file": "Hrm__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "均匀喷洒在冷却后的轮毂表面。等待 3-5 分钟直至铁粉反应呈现紫红色。对顽固污渍可使用轮毂刷辅助。最后运用高压水流冲洗干净。"
+            },
+            {
+                "name": "Hallenreiniger sauer",
+                "alias": "Hallenreiniger sauer",
+                "desc": "车间及洗车槽强力酸性清洁剂",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Hr",
+                "color": "red",
+                "svg_file": "Hr__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "均匀喷洒在冷却后的轮毂表面。等待 3-5 分钟直至铁粉反应呈现紫红色。对顽固污渍可使用轮毂刷辅助。最后运用高压水流冲洗干净。"
+            },
+            {
+                "name": "Hand Wax W0.01",
+                "alias": "Hand Wax W0.01",
+                "desc": "含高档巴西棕榈的手工保护蜡",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "W0.01",
+                "color": "black",
+                "svg_file": "W0.01__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "使用海绵涂抹器将产品均匀薄涂在干燥清洁的塑料/橡胶件上。让其吸收，如有未吸收的残余，使用纤维布轻轻擦去。"
+            },
+            {
+                "name": "Headlight Polish 1",
+                "alias": "Headlight Polish 1",
+                "desc": "有机玻璃和亚克力重切削修复抛光剂（无硅油）",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Hlp1",
+                "color": "black",
+                "svg_file": "Hlp1__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "使用海绵涂抹器将产品均匀薄涂在干燥清洁的塑料/橡胶件上。让其吸收，如有未吸收的残余，使用纤维布轻轻擦去。"
+            },
+            {
+                "name": "Headlight Polish 2",
+                "alias": "Headlight Polish 2",
+                "desc": "有机玻璃和亚克力高光快抛提亮剂",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Hlp2",
+                "color": "black",
+                "svg_file": "Hlp2__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "使用海绵涂抹器将产品均匀薄涂在干燥清洁的塑料/橡胶件上。让其吸收，如有未吸收的残余，使用纤维布轻轻擦去。"
+            },
+            {
+                "name": "Heavy Cut H9.02",
+                "alias": "Heavy Cut H9.02",
+                "desc": "H9.02 重切削研磨剂（无硅油）",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "使用前摇匀。",
+                "code": "H9.02",
+                "color": "black",
+                "svg_file": "H9.02__1760317201.svg",
+                "pa": "-",
+                "mist": "-",
+                "pure": "搭配抛光机打磨",
+                "method": "【官方建议】重切削，搭配大偏心 DA 机或 RO 机与 Koch 洗车羊毛盘或重切削海绵（红色盘）。<br><br>【个人经验】极低的粉尘，超长的打磨时间，切削力霸道。它是用来修复严重划痕和砂纸痕的首选。打磨后必须使用微切削或还原盘（如 M3.02 或 P3.01）进行二次收光。",
+                "bucket": "-"
+            },
+            {
+                "name": "Hochglanztrockner",
+                "alias": "Hochglanztrockner",
+                "desc": "高光速干冲洗剂",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Hgt",
+                "color": "olive",
+                "svg_file": "Hgt__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "将产品滴在涂布海绵或超细纤维涂抹布上，以十字划圈方式均匀薄涂于车漆表面。依据室内温度和湿度等待数分钟至其表面闪现或半干起雾状态，随后用高克重柔软纤维布擦亮收水。"
+            },
+            {
+                "name": "Hydro Foam Sealant",
+                "alias": "镀膜剂 Pro",
+                "desc": "S0.03 浓缩型专业水激活驱水镀膜剂",
+                "ph": "4.5",
+                "ratio": "薄层涂抹",
+                "notice": "【警告】绝不能让它干在漆面上（否则会留下顽固半透明泪痕水渍，需要重抛光）。",
+                "code": "S0.03",
+                "color": "black",
+                "svg_file": "S0.03__1760317201.svg",
+                "pa": "1:50 - 1:150",
+                "mist": "官方推荐: 1:50 - 1:150",
+                "pure": "-",
+                "method": "【官方建议】湿车喷洒用快速水激活镀膜液。<br><br>【个人经验】这是给极其懒惰但追求极高效果玩家的神器。洗完车全车挂水状态下，将稀释好的 S0.03 用喷壶喷涂全车，你会立刻看到水膜碎裂（反应中），立刻！马上！用高压水洗净全车，全车瞬间形成究极拨水层，甚至连吹水都变得极其容易。",
+                "bucket": "-"
+            },
+            {
+                "name": "Hydro Plast Care",
+                "alias": "水性塑料护理",
+                "desc": "水可稀释型环保水性外部塑料还原养护剂",
+                "ph": "6.5",
+                "ratio": "1:5-1:10",
+                "notice": "环保无溶剂配方，光泽相对柔和自然。",
+                "code": "Hpc",
+                "color": "gray",
+                "svg_file": "Hpc__1760317201.svg",
+                "pa": "-",
+                "mist": "官方参考: 1:5 - 1:10 | 详见产品背标",
+                "pure": "直接使用 (极重)",
+                "method": "可兑水稀释后使用。清洁好外部塑料/橡胶/发动机舱后喷洒或涂抹，令其表面自然吸收。",
+                "bucket": "-"
+            },
+            {
+                "name": "Hyper Dryer",
+                "alias": "Hyper Dryer",
+                "desc": "高科技固化促干剂",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Hd",
+                "color": "olive",
+                "svg_file": "Hd__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "将产品滴在涂布海绵或超细纤维涂抹布上，以十字划圈方式均匀薄涂于车漆表面。依据室内温度和湿度等待数分钟至其表面闪现或半干起雾状态，随后用高克重柔软纤维布擦亮收水。"
+            },
+            {
+                "name": "Insect&Dirt Remover",
+                "alias": "虫胶清洁剂",
+                "desc": "漆面虫尸与顽固鸟粪溶解清洁剂",
+                "ph": "10.0",
+                "ratio": "1:3-1:10",
+                "notice": "高温或直射阳光下禁用",
+                "code": "Idr",
+                "color": "green",
+                "svg_file": "Idr__1760317201.svg",
+                "pa": "-",
+                "mist": "官方参考: 1:3 - 1:10 | 详见产品背标",
+                "pure": "-",
+                "method": "在洗车前，将稀释液或者原液喷射至前杠等虫胶/鸟粪堆积处。静候 2-3 分钟让高蛋白污垢软化，配合高压水枪直接冲洗脱落。不要在发热的引擎盖上操作。",
+                "bucket": "-"
+            },
+            {
+                "name": "KC-Refresher Fluid",
+                "alias": "熏蒸液",
+                "desc": "Fumigation liquid",
+                "ph": "-",
+                "ratio": "根据设备",
+                "notice": "专业设备使用",
+                "code": "Kcr",
+                "color": "purple",
+                "svg_file": "Kcr__1760317201.svg",
+                "pa": "-",
+                "mist": "官方参考: 根据设备 | 详见产品背标",
+                "pure": "-",
+                "method": "根据香氛机设备和环境大小滴入浓缩液，不可直接让原液接触内饰塑料面板以免烧穿漆面，用于空间挥发。"
+            },
+            {
+                "name": "Kcu-Reifenschaum",
+                "alias": "轮胎光亮喷剂",
+                "desc": "Tyre care foam",
+                "ph": "-",
+                "ratio": "直接使用",
+                "notice": "轮胎上光",
+                "code": "Rfs",
+                "color": "gray",
+                "svg_file": "Rfs__1760317201.svg",
+                "pure": "直接使用",
+                "pa": "-",
+                "mist": "-",
+                "method": "使用海绵涂抹器将产品均匀薄涂在干燥清洁的塑料/橡胶件上。让其吸收，如有未吸收的残余，使用纤维布轻轻擦去。"
+            },
+            {
+                "name": "KocEntschäumer",
+                "alias": "KocEntschäumer",
+                "desc": "浓缩消泡剂",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Ken",
+                "color": "blue",
+                "svg_file": "Ken__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "将原液直接喷射于玻璃表面或喷在专用的鱼鳞格玻璃布上。采用十字交叉法擦拭玻璃，翻转玻璃布的干净面或使用另一条干布进行最后收水擦亮。"
+            },
+            {
+                "name": "KocFloc",
+                "alias": "KocFloc",
+                "desc": "絮凝剂 A",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Kfl",
+                "color": "blue",
+                "svg_file": "Kfl__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "将原液直接喷射于玻璃表面或喷在专用的鱼鳞格玻璃布上。采用十字交叉法擦拭玻璃，翻转玻璃布的干净面或使用另一条干布进行最后收水擦亮。"
+            },
+            {
+                "name": "KocFloc Bio Clear",
+                "alias": "KocFloc Bio Clear",
+                "desc": "生物清洁絮凝剂 B",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Kfb",
+                "color": "blue",
+                "svg_file": "Kfb__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "将原液直接喷射于玻璃表面或喷在专用的鱼鳞格玻璃布上。采用十字交叉法擦拭玻璃，翻转玻璃布的干净面或使用另一条干布进行最后收水擦亮。"
+            },
+            {
+                "name": "KocFloc spezial",
+                "alias": "KocFloc spezial",
+                "desc": "特种絮凝剂",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Kfsp",
+                "color": "blue",
+                "svg_file": "Kfsp__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "将原液直接喷射于玻璃表面或喷在专用的鱼鳞格玻璃布上。采用十字交叉法擦拭玻璃，翻转玻璃布的干净面或使用另一条干布进行最后收水擦亮。"
+            },
+            {
+                "name": "KocKlar",
+                "alias": "KocKlar",
+                "desc": "洗车水循环消毒处理剂 KP",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Kkl",
+                "color": "blue",
+                "svg_file": "Kkl__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "将原液直接喷射于玻璃表面或喷在专用的鱼鳞格玻璃布上。采用十字交叉法擦拭玻璃，翻转玻璃布的干净面或使用另一条干布进行最后收水擦亮。"
+            },
+            {
+                "name": "KocPlus 25%",
+                "alias": "KocPlus 25%",
+                "desc": "水处理增强附加剂 25%",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Kp2",
+                "color": "blue",
+                "svg_file": "Kp2__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "将原液直接喷射于玻璃表面或喷在专用的鱼鳞格玻璃布上。采用十字交叉法擦拭玻璃，翻转玻璃布的干净面或使用另一条干布进行最后收水擦亮。"
+            },
+            {
+                "name": "Kunststoff-Färber schwarz",
+                "alias": "轮胎泡沫",
+                "desc": "Plastic dye paste, black",
+                "ph": "-",
+                "ratio": "直接使用",
+                "notice": "带来轮胎光泽",
+                "code": "Kfs",
+                "color": "black",
+                "svg_file": "Kfs__1760317201.svg",
+                "pure": "直接使用",
+                "pa": "-",
+                "mist": "-",
+                "method": "建议搭配振动抛光机（DA），配合中切削/抛光海绵盘。中速平稳移动，十字交叉抛光提亮漆面。施工后用超细纤维布轻轻擦拭干净。"
+            },
+            {
+                "name": "Lack-Polish grün P1.03",
+                "alias": "终还原剂",
+                "desc": "P1.03 基础饰面抛光蜡",
+                "ph": "-",
+                "ratio": "直接使用",
+                "notice": "基础光泽还原提升剂。切削力极低（1.0），光泽度中光（9.5）",
+                "code": "P1.03",
+                "color": "black",
+                "svg_file": "P1.03__1760317201.svg",
+                "pure": "直接使用",
+                "pa": "-",
+                "mist": "-",
+                "method": "配合偏心振动抛光机（DA）和极细海绵还原盘使用。以中低速轻轻均匀打磨，主要用于去除微细划痕和全息纹，提升终极镜面光泽。完成后擦除抛光残留物。",
+                "bucket": "-"
+            },
+            {
+                "name": "Lack-Polish violett P2.03",
+                "alias": "Lack-Polish violett P2.03",
+                "desc": "P2.03 研磨上光还原二合一保护剂",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "快速施工，切削力极低（2.0），光泽度中光（9.5）",
+                "code": "P2.03",
+                "color": "black",
+                "svg_file": "P2.03__1760317201.svg",
+                "pa": "-",
+                "mist": "-",
+                "pure": "直接使用",
+                "method": "建议搭配振动抛光机（DA），配合中切削/抛光海绵盘。中速平稳移动，十字交叉抛光提亮漆面。施工后用超细纤维布轻轻擦拭干净。",
+                "bucket": "-"
+            },
+            {
+                "name": "Leather Star",
+                "alias": "Leather Star",
+                "desc": "内饰高级真皮深层养护液",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Ls",
+                "color": "cyan",
+                "svg_file": "Ls__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "将稀释液喷洒在干净的超细纤维布或清洁海绵上，轻轻擦拭内饰塑料、皮革或织物表面。如有必要，可使用马毛刷或者细节刷辅助清洁。最后用微湿的干净纤维布收水擦拭。"
+            },
+            {
+                "name": "Magic Dry & Care",
+                "alias": "Magic Dry & Care",
+                "desc": "神奇干燥抗水护理剂",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Mdc",
+                "color": "olive",
+                "svg_file": "Mdc__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "将产品滴在涂布海绵或超细纤维涂抹布上，以十字划圈方式均匀薄涂于车漆表面。依据室内温度和湿度等待数分钟至其表面闪现或半干起雾状态，随后用高克重柔软纤维布擦亮收水。"
+            },
+            {
+                "name": "Magic Wheel Cleaner",
+                "alias": "Magic Wheel Cleaner",
+                "desc": "高性能中性铁粉去除与轮毂清洁剂",
+                "ph": "5.5",
+                "ratio": "-",
+                "notice": "带有硫磺味属正常铁粉反应剂气味，避免在阳光直射发烫的轮毂上使用。",
+                "code": "Mwc",
+                "color": "red",
+                "svg_file": "Mwc__1760317201.svg",
+                "pa": "-",
+                "mist": "即用型（原液喷洒）",
+                "pure": "-",
+                "method": "【官方建议】均匀喷洒于常温轮毂，等待3-5分钟直至变红，用高压水枪冲洗。<br><br>【个人经验】PH 5.5（微弱酸/中性）。全球公认最好用的去铁粉轮毂清洗剂之一，配方极其粘稠（Magic 意在挂壁久），不变干。它不仅除铁粉，还有极佳的脱脂清洁力，对于日常保养绝对安全，不腐蚀任何定制锻造轮毂。",
+                "bucket": "-"
+            },
+            {
+                "name": "Mehrzweckreiniger",
+                "alias": "多用途清洁剂",
+                "desc": "多用途内饰与特殊表面全能清洁剂 (内饰版 APC)",
+                "ph": "12.5",
+                "ratio": "1:10-1:100",
+                "notice": "PH 值高达 12.5！虽然用于内饰，但极其强效。清洁真皮后请务必涂抹 Ls（真皮养护）。",
+                "code": "Mzr",
+                "color": "green",
+                "svg_file": "Mzr__1760317201.svg",
+                "pa": "-",
+                "mist": "官方推荐: 1:5 到 1:50 (视污垢程度)",
+                "pure": "-",
+                "method": "【官方建议】喷在微细纤维布或清洁海绵上，擦拭表面。<br><br>【个人经验】内饰清理的神器。针对顶棚的烟熏黄渍、座椅缝隙咖啡渍、仪表板重油污，1:10 即可通杀。使用后请务必用清水微湿的干净微纤布再次擦拭“收水”，以带走溶解的脏污和清洁剂残留。",
+                "bucket": "-"
+            },
+            {
+                "name": "Metal Polish",
+                "alias": "Metal Polish",
+                "desc": "金属/镀铬件高光清洁抛光剂",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Mep",
+                "color": "black",
+                "svg_file": "Mep__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "建议搭配振动抛光机（DA），配合中切削/抛光海绵盘。中速平稳移动，十字交叉抛光提亮漆面。施工后用超细纤维布轻轻擦拭干净。"
+            },
+            {
+                "name": "Micro Cut & Finish P3.01",
+                "alias": "微切抛光",
+                "desc": "P3.01 含巴西棕榈蜡微切削抛光蜡",
+                "ph": "-",
+                "ratio": "直接使用",
+                "notice": "含硅/蜡成分。",
+                "code": "P3.01",
+                "color": "black",
+                "svg_file": "P3.01__1760317201.svg",
+                "pure": "手工或机器涂抹",
+                "pa": "-",
+                "mist": "-",
+                "method": "【官方建议】包含巴西棕榈蜡的微切削抛光机。<br><br>【个人经验】如果做二手车翻新或者想要极高的效率，P3.01 能一边消除细微划痕，一边留下厚实的棕榈蜡光泽，一步到位（俗称 One-Step 抛光蜡）。",
+                "bucket": "-"
+            },
+            {
+                "name": "Micro Cut M2.02",
+                "alias": "Micro Cut M2.02",
+                "desc": "M2.02 极细镜面还原抛光剂（无硅油）",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "专研去全息纹配方，光泽度极限。切削力（2.5），光泽度极高（9.0）",
+                "code": "M2.02",
+                "color": "black",
+                "svg_file": "M2.02__1760317201.svg",
+                "pa": "-",
+                "mist": "-",
+                "pure": "直接使用",
+                "method": "配合偏心振动抛光机（DA）和极细海绵还原盘使用。以中低速轻轻均匀打磨，主要用于去除微细划痕和全息纹，提升终极镜面光泽。完成后擦除抛光残留物。",
+                "bucket": "-"
+            },
+            {
+                "name": "Micro Cut M3.02",
+                "alias": "微切研磨剂",
+                "desc": "M3.02 微切削高光泽抛光剂（无硅油）",
+                "ph": "-",
+                "ratio": "直接使用",
+                "notice": "极细研磨颗粒，不可重压。",
+                "code": "M3.02",
+                "color": "black",
+                "svg_file": "M3.02__1760317201.svg",
+                "pure": "搭配细海绵盘",
+                "pa": "-",
+                "mist": "-",
+                "method": "【官方建议】用于去除全息纹（消除机器抛光留下的眩光圈）（紫色盘）。<br><br>【个人经验】光泽度爆表的还原剂，能够将漆面打磨出绝对的镜面效果，尤其在深色/黑色车漆上，必须使用 M3.02 进行最后收光才能达到无修饰的完美。",
+                "bucket": "-"
+            },
+            {
+                "name": "Motorplast",
+                "alias": "发动机保护剂",
+                "desc": "Special engine conserver",
+                "ph": "-",
+                "ratio": "直接喷涂",
+                "notice": "不可用于运转中的发动机",
+                "code": "Mp",
+                "color": "gray",
+                "svg_file": "Mp__1760317201.svg",
+                "pure": "直接喷涂",
+                "pa": "-",
+                "mist": "-",
+                "method": "使用海绵涂抹器将产品均匀薄涂在干燥清洁的塑料/橡胶件上。让其吸收，如有未吸收的残余，使用纤维布轻轻擦去。"
+            },
+            {
+                "name": "Nano Pure Polish",
+                "alias": "Nano Pure Polish",
+                "desc": "纳米级纯净抛光蜡",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Npp",
+                "color": "olive",
+                "svg_file": "Npp__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "将产品滴在涂布海绵或超细纤维涂抹布上，以十字划圈方式均匀薄涂于车漆表面。依据室内温度和湿度等待数分钟至其表面闪现或半干起雾状态，随后用高克重柔软纤维布擦亮收水。"
+            },
+            {
+                "name": "Nano-Glasversiegelung Komponente 1",
+                "alias": "纳米玻璃镀膜套组",
+                "desc": "纳米玻璃雨敌双组分配方",
+                "ph": "-",
+                "ratio": "按套组说明",
+                "notice": "涂抹后需要充分的闪干时间，严格遵守说明册。",
+                "code": "Ng",
+                "color": "blue",
+                "svg_file": "Ng__1760317201.svg",
+                "pa": "-",
+                "mist": "按套组说明",
+                "pure": "-",
+                "method": "【官方建议】双组分纳米玻璃镀膜。第一步彻底抛光去油膜；第二步将两个组分混合涂抹。<br><br>【个人经验】耐久度长达半年以上的玻璃拨水剂，高速上雨点彻底飞走。但是前挡风玻璃必须去油膜极其彻底，否则可能导致雨刮跳动。"
+            },
+            {
+                "name": "NanoCrystal Polish",
+                "alias": "NanoCrystal Polish",
+                "desc": "纳米级泡沫光泽抛光剂",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Ncp",
+                "color": "olive",
+                "svg_file": "Ncp__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "将产品滴在涂布海绵或超细纤维涂抹布上，以十字划圈方式均匀薄涂于车漆表面。依据室内温度和湿度等待数分钟至其表面闪现或半干起雾状态，随后用高克重柔软纤维布擦亮收水。"
+            },
+            {
+                "name": "NanoMagic Polish",
+                "alias": "NanoMagic Polish",
+                "desc": "纳米级特效魔幻洗车香波抛光",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Nmp",
+                "color": "olive",
+                "svg_file": "Nmp__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "将产品滴在涂布海绵或超细纤维涂抹布上，以十字划圈方式均匀薄涂于车漆表面。依据室内温度和湿度等待数分钟至其表面闪现或半干起雾状态，随后用高克重柔软纤维布擦亮收水。"
+            },
+            {
+                "name": "NanoMagic Shampoo",
+                "alias": "纳米魔幻洗车液",
+                "desc": "含纳米上光保护成分的顶级洗车香波",
+                "ph": "6.5",
+                "ratio": "1:200-1:600",
+                "notice": "使用前请务必摇匀瓶身！",
+                "code": "Nms",
+                "color": "yellow",
+                "svg_file": "Nms__1760317201.svg",
+                "pa": "-",
+                "mist": "-",
+                "pure": "-",
+                "method": "【官方建议】将香波倒入水桶中起泡后，使用洗车海绵均匀擦拭车身，随后彻底冲洗。<br><br>【个人经验】这是一款极顶级的保养香波（含纳米封闭剂）。洗完冲水时能立刻看到极其夸张的拨水（荷叶）效果。每次使用前必须用力摇匀（因为底部的纳米材料会沉淀）。",
+                "bucket": "官方推荐: 1:200 (单次 50ml 兑 10L 水)"
+            },
+            {
+                "name": "NanoMagic Twin Wax",
+                "alias": "NanoMagic Twin Wax",
+                "desc": "纳米级双重效果保护水蜡",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Nw",
+                "color": "olive",
+                "svg_file": "Nw__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "将产品滴在涂布海绵或超细纤维涂抹布上，以十字划圈方式均匀薄涂于车漆表面。依据室内温度和湿度等待数分钟至其表面闪现或半干起雾状态，随后用高克重柔软纤维布擦亮收水。"
+            },
+            {
+                "name": "One Cut & Finish P6.02",
+                "alias": "一步抛光",
+                "desc": "P6.02 漆面纠正与高光封闭一步抛光蜡",
+                "ph": "-",
+                "ratio": "直接使用",
+                "notice": "非常适合快速出车。",
+                "code": "P6.02",
+                "color": "black",
+                "svg_file": "P6.02__1760317201.svg",
+                "pure": "手工或机器涂抹",
+                "pa": "-",
+                "mist": "-",
+                "method": "【官方建议】重切削一步蜡。<br><br>【个人经验】含高填充物和保护剂，切削力甚至达到 6.0，比 P3.01 切得更深，填得更满。",
+                "bucket": "-"
+            },
+            {
+                "name": "Orange Power",
+                "alias": "橙力去胶剂",
+                "desc": "橘油强效柏油、树脂及不干胶去除剂",
+                "ph": "-",
+                "ratio": "直接使用",
+                "notice": "见效稍慢，但极其安全。",
+                "code": "Op",
+                "color": "orange",
+                "svg_file": "Op__1760317201.svg",
+                "pure": "原液",
+                "pa": "-",
+                "mist": "局部喷洒",
+                "method": "【官方建议】橙油强效柏油树胶去除剂。<br><br>【个人经验】非常安全的天然柑橘油溶剂配方，闻起来非常香的橘子味。能慢慢软化松树胶和沥青点，用在高级车漆上比 Eu 更加安全。",
+                "bucket": "-"
+            },
+            {
+                "name": "Panel Preparation Spray",
+                "alias": "面板预处理喷剂",
+                "desc": "Control spray",
+                "ph": "-",
+                "ratio": "直接使用",
+                "notice": "喷漆前清洁必用",
+                "code": "Pps",
+                "color": "orange",
+                "svg_file": "Pps__1760317201.svg",
+                "pure": "直接使用",
+                "pa": "-",
+                "mist": "-",
+                "method": "直接喷洒于焦油、沥青、树胶或虫尸等顽固污渍上。留置 1-2 分钟（注意观察不可损伤清漆），然后用干净的超细纤维布轻轻擦拭。重度污垢可重复此过程。"
+            },
+            {
+                "name": "Plast Star 96",
+                "alias": "塑料之星 96",
+                "desc": "Care for external plastic plus",
+                "ph": "-",
+                "ratio": "直接使用",
+                "notice": "含有护理成分",
+                "code": "Ps9",
+                "color": "gray",
+                "svg_file": "Ps9__1760317201.svg",
+                "pure": "直接使用",
+                "pa": "-",
+                "mist": "-",
+                "method": "使用海绵涂抹器将产品均匀薄涂在干燥清洁的塑料/橡胶件上。让其吸收，如有未吸收的残余，使用纤维布轻轻擦去。"
+            },
+            {
+                "name": "Plast Star siliconölfrei",
+                "alias": "塑料护理无硅油",
+                "desc": "Premium care for external plastic, silicone-oil-free",
+                "ph": "-",
+                "ratio": "直接使用",
+                "notice": "防止塑料老化",
+                "code": "Pss",
+                "color": "gray",
+                "svg_file": "Pss__1760317201.svg",
+                "pure": "直接使用",
+                "pa": "-",
+                "mist": "-",
+                "method": "使用海绵涂抹器将产品均匀薄涂在干燥清洁的塑料/橡胶件上。让其吸收，如有未吸收的残余，使用纤维布轻轻擦去。"
+            },
+            {
+                "name": "Plastiklack-Spray grau",
+                "alias": "塑料光泽剂",
+                "desc": "Spray paint, matt grey",
+                "ph": "-",
+                "ratio": "直接使用",
+                "notice": "塑料件增光",
+                "code": "Plg",
+                "color": "gray",
+                "svg_file": "Plg__1760317201.svg",
+                "pure": "直接使用",
+                "pa": "-",
+                "mist": "-",
+                "method": "使用海绵涂抹器将产品均匀薄涂在干燥清洁的塑料/橡胶件上。让其吸收，如有未吸收的残余，使用纤维布轻轻擦去。"
+            },
+            {
+                "name": "Plastiklack-Spray schwarz",
+                "alias": "塑料漆喷剂",
+                "desc": "Spray paint, matt black, RAL 9005",
+                "ph": "-",
+                "ratio": "直接喷涂",
+                "notice": "塑料件翻新",
+                "code": "Pls",
+                "color": "black",
+                "svg_file": "Pls__1760317201.svg",
+                "pure": "直接喷涂",
+                "pa": "-",
+                "mist": "-",
+                "method": "建议搭配振动抛光机（DA），配合中切削/抛光海绵盘。中速平稳移动，十字交叉抛光提亮漆面。施工后用超细纤维布轻轻擦拭干净。"
+            },
+            {
+                "name": "Pol Star",
+                "alias": "抛光之星",
+                "desc": "顶级内饰织物、Alcantara及真皮温和清洗剂",
+                "ph": "7.0",
+                "ratio": "1:10-1:40",
+                "notice": "真皮、翻毛皮清理首选。",
+                "code": "Po",
+                "color": "green",
+                "svg_file": "Po__1760317201.svg",
+                "pa": "-",
+                "mist": "官方推荐: 1:5 到 1:20",
+                "pure": "-",
+                "method": "【官方建议】喷洒并在微纤布上揉搓，对于 Alcantara 皮革使用软毛刷顺向轻刷。<br><br>【个人经验】比起 Mzr，Po（Pol Star）是中性（PH 7.0）的，更适合高档车特有的 Alcantara（翻毛皮）和精细绒布。它能起非常温和的泡沫将污垢托出，且完全不伤纤维。",
+                "bucket": "-"
+            },
+            {
+                "name": "Power-Schaum",
+                "alias": "Power-Schaum",
+                "desc": "",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Pow",
+                "color": "yellow",
+                "svg_file": "Pow__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "两桶水洗车法：先用高压水枪预冲洗掉大颗粒泥沙。将海绵/洗车手套浸入配比好的香波稀释液中，均匀涂抹车身进行清洗。经常在另一个清水桶中单向揉搓清洗手套以释放沙粒。最后用清水冲洗干净残留泡沫。"
+            },
+            {
+                "name": "ProtectorWax",
+                "alias": "ProtectorWax",
+                "desc": "高级洗车房快喷保护水蜡 P",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Pw",
+                "color": "olive",
+                "svg_file": "Pw__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "将产品滴在涂布海绵或超细纤维涂抹布上，以十字划圈方式均匀薄涂于车漆表面。依据室内温度和湿度等待数分钟至其表面闪现或半干起雾状态，随后用高克重柔软纤维布擦亮收水。"
+            },
+            {
+                "name": "PureShampoo",
+                "alias": "生物洗车液",
+                "desc": "Biogenic shampoo",
+                "ph": "neutral",
+                "ratio": "1:200-1:800",
+                "notice": "环保配方",
+                "code": "Ps",
+                "color": "gray",
+                "svg_file": "Ps__1760317201.svg",
+                "pa": "官方参考: 1:200 | 根据脏污程度动态调整",
+                "mist": "官方参考: 1:200-1:800 | 详见产品背标",
+                "pure": "-",
+                "method": "【官方建议】专为人手洗车设计的生物洗车液。直接将按比例稀释后的洗车液配合海绵使用，轻柔清洗车身，随后用清水冲洗干净，避免在阳光下让产品干结。"
+            },
+            {
+                "name": "Quick & Shine",
+                "alias": "Quick & Shine",
+                "desc": "全能快速上光保护喷雾（快速 QD）",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Qs",
+                "color": "black",
+                "svg_file": "Qs__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "使用海绵涂抹器将产品均匀薄涂在干燥清洁的塑料/橡胶件上。让其吸收，如有未吸收的残余，使用纤维布轻轻擦去。"
+            },
+            {
+                "name": "Quick Dry & Shine",
+                "alias": "Quick Dry & Shine",
+                "desc": "洗车房级快速促干增光水蜡",
+                "ph": "4.5",
+                "ratio": "-",
+                "notice": "洗车房设备用浓缩液",
+                "code": "Qds",
+                "color": "olive",
+                "svg_file": "Qds__1760317201.svg",
+                "pa": "-",
+                "mist": "-",
+                "pure": "-",
+                "method": "洗车线/洗车房打蜡设备喷洒拨水，或者兑水后用喷壶在冲洗阶段喷洒后立即水枪冲洗激活。",
+                "bucket": "-"
+            },
+            {
+                "name": "Quick Finish",
+                "alias": "Quick Finish",
+                "desc": "无硅油配方快速完工保护喷雾",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "无硅油配方，不干扰后续油漆涂层。",
+                "code": "Qf",
+                "color": "black",
+                "svg_file": "Qf__1760317201.svg",
+                "pa": "",
+                "mist": "即用型喷雾",
+                "pure": "-",
+                "method": "【官方建议】无硅配方的纯正快速细节喷雾。<br><br>【个人经验】如果你在做镀膜或者不希望有硅油干扰（比如在喷漆房车间），它是用来擦拭轻微指纹灰尘、提供原始光亮的最佳 QD。"
+            },
+            {
+                "name": "Rapid Rinseless Wash",
+                "alias": "免冲洗洗车液",
+                "desc": "Car Wash Without Rinsing",
+                "ph": "neutral",
+                "ratio": "1:256",
+                "notice": "节水洗车，1L兑256L水",
+                "code": "Rrw",
+                "color": "yellow",
+                "svg_file": "Rrw__1760317201.svg",
+                "pa": "-",
+                "mist": "官方参考: 1:256 | 详见产品背标",
+                "pure": "-",
+                "method": "两桶水洗车法：先用高压水枪预冲洗掉大颗粒泥沙。将海绵/洗车手套浸入配比好的香波稀释液中，均匀涂抹车身进行清洗。经常在另一个清水桶中单向揉搓清洗手套以释放沙粒。最后用清水冲洗干净残留泡沫。"
+            },
+            {
+                "name": "Reactivation Shampoo",
+                "alias": "镀膜激活洗车液",
+                "desc": "Descaling soap for ceramic coatings",
+                "ph": "alkaline",
+                "ratio": "1:50-1:100",
+                "notice": "激活陶瓷镀膜层",
+                "code": "Rs",
+                "color": "yellow",
+                "svg_file": "Rs__1760317201.svg",
+                "pa": "官方参考: 1:50 | 根据脏污程度动态调整",
+                "mist": "官方参考: 1:50-1:100 | 详见产品背标",
+                "pure": "-",
+                "method": "两桶水洗车法：先用高压水枪预冲洗掉大颗粒泥沙。将海绵/洗车手套浸入配比好的香波稀释液中，均匀涂抹车身进行清洗。经常在另一个清水桶中单向揉搓清洗手套以释放沙粒。最后用清水冲洗干净残留泡沫。"
+            },
+            {
+                "name": "Reactive Rust Remover",
+                "alias": "Reactive Rust Remover",
+                "desc": "中性反应型无酸除铁粉及除锈剂",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "等待反应但不让让其彻底干透。",
+                "code": "Rrr",
+                "color": "red",
+                "svg_file": "Rrr__1760317201.svg",
+                "pa": "",
+                "mist": "即用型（原液）",
+                "pure": "-",
+                "method": "【官方建议】针对车漆表面的铁粉/工业飞屑去除。喷洒全车，反应变紫后冲水。<br><br>【个人经验】Reactive Rust Remover 是中性的，比普通的酸洗更安全，可以直接全车喷洒软化铁粉，配合柏油剂，是车身深度拔铁粉“大保健”必备首选。"
+            },
+            {
+                "name": "Regenit-Salz",
+                "alias": "Regenit-Salz",
+                "desc": "水处理离子再生盐片",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Bs",
+                "color": "blue",
+                "svg_file": "Bs__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "将原液直接喷射于玻璃表面或喷在专用的鱼鳞格玻璃布上。采用十字交叉法擦拭玻璃，翻转玻璃布的干净面或使用另一条干布进行最后收水擦亮。"
+            },
+            {
+                "name": "Reinigungsknete blau",
+                "alias": "轮毂清洁剂 K",
+                "desc": "温和去污盘/火山泥块 (蓝版)",
+                "ph": "-",
+                "ratio": "1:3-1:10",
+                "notice": "蓝色版相对温和，不易划伤车漆。",
+                "code": "Rkb",
+                "color": "orange",
+                "svg_file": "Rkb__1760317201.svg",
+                "pa": "-",
+                "mist": "-",
+                "pure": "-",
+                "method": "配合润滑喷剂 Cls 使用。直接在漆面来回摩擦滑过，保持润滑即可。",
+                "bucket": "-"
+            },
+            {
+                "name": "Reinigungsknete rot",
+                "alias": "碱性轮毂清洁剂",
+                "desc": "重度研磨去污盘/火山泥块 (红版)",
+                "ph": "-",
+                "ratio": "1:2-1:10",
+                "notice": "红色版切削力极强，使用后可能会产生细小划痕，建议作为抛光前处理。",
+                "code": "Rkr",
+                "color": "orange",
+                "svg_file": "Rkr__1760317201.svg",
+                "pa": "-",
+                "mist": "-",
+                "pure": "-",
+                "method": "配合润滑喷剂 Cls 使用。直接在漆面来回摩擦推除氧化层和顽固颗粒。",
+                "bucket": "-"
+            },
+            {
+                "name": "Schleifpaste H7.01",
+                "alias": "Schleifpaste H7.01",
+                "desc": "H7.01 基础重切削快抛研磨膏（无硅油）",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "旧版配方重切削，切削力强（7.5），光泽度底（3.0）",
+                "code": "H7.01",
+                "color": "black",
+                "svg_file": "H7.01__1760317201.svg",
+                "pa": "-",
+                "mist": "-",
+                "pure": "直接使用",
+                "method": "建议搭配旋转式抛光机或大偏置振动抛光机（DA），配合重切削海绵盘或羊毛盘。以中等转速施加适度压力，十字交叉法均匀移动抛光，直到划痕去除并形成清晰光泽。最后使用干净纤维布擦去残留研磨剂。",
+                "bucket": "-"
+            },
+            {
+                "name": "Shield & Gloss Wax",
+                "alias": "Shield & Gloss Wax",
+                "desc": "带有高光泽添加剂的高级保护水蜡",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Sgw",
+                "color": "olive",
+                "svg_file": "Sgw__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "将产品滴在涂布海绵或超细纤维涂抹布上，以十字划圈方式均匀薄涂于车漆表面。依据室内温度和湿度等待数分钟至其表面闪现或半干起雾状态，随后用高克重柔软纤维布擦亮收水。"
+            },
+            {
+                "name": "Silicon- & Wachsentferner",
+                "alias": "硅油蜡去除剂",
+                "desc": "Silicone remover, soluble in water",
+                "ph": "-",
+                "ratio": "1:5-1:10",
+                "notice": "喷漆前必用",
+                "code": "Sil",
+                "color": "orange",
+                "svg_file": "Sil__1760317201.svg",
+                "pa": "官方参考: 1:5 | 根据脏污程度动态调整",
+                "mist": "官方参考: 1:5-1:10 | 详见产品背标",
+                "pure": "-",
+                "method": "直接喷洒于焦油、沥青、树胶或虫尸等顽固污渍上。留置 1-2 分钟（注意观察不可损伤清漆），然后用干净的超细纤维布轻轻擦拭。重度污垢可重复此过程。"
+            },
+            {
+                "name": "Spotless Ceramic Finish",
+                "alias": "陶瓷镀膜去斑剂",
+                "desc": "Water stain remover for ceramic-sealed surfaces",
+                "ph": "acid",
+                "ratio": "直接使用",
+                "notice": "仅用于陶瓷镀膜面",
+                "code": "Scf",
+                "color": "olive",
+                "svg_file": "Scf__1760317201.svg",
+                "pure": "直接使用",
+                "pa": "-",
+                "mist": "-",
+                "method": "将产品滴在涂布海绵或超细纤维涂抹布上，以十字划圈方式均匀薄涂于车漆表面。依据室内温度和湿度等待数分钟至其表面闪现或半干起雾状态，随后用高克重柔软纤维布擦亮收水。"
+            },
+            {
+                "name": "Spray Sealant",
+                "alias": "镀膜剂",
+                "desc": "S0.02 顶级喷洒式快速镀膜增光封闭剂",
+                "ph": "-",
+                "ratio": "薄层涂抹",
+                "notice": "切勿喷洒过量（会产生油影），少即是多。",
+                "code": "S0.02",
+                "color": "black",
+                "svg_file": "S0.02__1760317201.svg",
+                "pa": "-",
+                "mist": "即用型喷雾",
+                "pure": "-",
+                "method": "【官方建议】极速喷雾式密封胶 High Gloss。<br><br>【个人经验】当下最流行且极其顺滑的喷洒镀膜。只需在干净的漆面（干或者微湿都行）极少量喷洒一两下，迅速用纤维布抹开擦亮。能够提供长达 2 个月以上的疯狂驱水能力，施工零难度。",
+                "bucket": "-"
+            },
+            {
+                "name": "Super Foam",
+                "alias": "Super Foam",
+                "desc": "自助洗车站点专用高发泡超级泡沫",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Sf",
+                "color": "yellow",
+                "svg_file": "Sf__1760317201.svg",
+                "pa": "自动洗车机专用，通常稀释为 1:50-1:100 喷洒",
+                "mist": "-",
+                "pure": "-",
+                "method": "【官方建议】为洗车自助站设计的超级泡沫。<br><br>【个人经验】一般玩家很少接触，工业级泡沫剂。"
+            },
+            {
+                "name": "Super Foam Fruit Bowl",
+                "alias": "Super Foam Fruit Bowl",
+                "desc": "自助洗车站点专用超级泡沫（果盘香型）",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Sff",
+                "color": "yellow",
+                "svg_file": "Sff__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "两桶水洗车法：先用高压水枪预冲洗掉大颗粒泥沙。将海绵/洗车手套浸入配比好的香波稀释液中，均匀涂抹车身进行清洗。经常在另一个清水桶中单向揉搓清洗手套以释放沙粒。最后用清水冲洗干净残留泡沫。"
+            },
+            {
+                "name": "Super Foam NTA-frei",
+                "alias": "Super Foam NTA-frei",
+                "desc": "无 NTA 环保配方重型发泡清洁剂",
+                "ph": "9.0",
+                "ratio": "-",
+                "notice": "自助洗车房及预洗站用重型发泡剂",
+                "code": "Sfn",
+                "color": "yellow",
+                "svg_file": "Sfn__1760317201.svg",
+                "pa": "官方参考: 1:10 - 1:30 | 根据脏污程度动态调整",
+                "mist": "-",
+                "pure": "-",
+                "method": "使用 PA 壶（泡沫枪）或洗车房发泡设备，将调配好的泡沫液均匀喷洒覆盖全车。让其在表面留置约 3-5 分钟进行反应溶解污垢，之后使用洁净的高压水枪彻底冲洗干净。",
+                "bucket": "-"
+            },
+            {
+                "name": "Teerwäsche A",
+                "alias": "笔迹去除剂",
+                "desc": "Bitumen & tar remover A",
+                "ph": "-",
+                "ratio": "直接使用",
+                "notice": "内饰使用先测试",
+                "code": "Tea",
+                "color": "orange",
+                "svg_file": "Tea__1760317201.svg",
+                "pure": "直接使用",
+                "pa": "-",
+                "mist": "-",
+                "method": "直接喷洒于焦油、沥青、树胶或虫尸等顽固污渍上。留置 1-2 分钟（注意观察不可损伤清漆），然后用干净的超细纤维布轻轻擦拭。重度污垢可重复此过程。"
+            },
+            {
+                "name": "Tinten- & Kuli-Ex",
+                "alias": "织物去渍剂",
+                "desc": "Ink and ballpoint remover",
+                "ph": "-",
+                "ratio": "直接使用",
+                "notice": "纺织品专用",
+                "code": "Tex",
+                "color": "orange",
+                "svg_file": "Tex__1760317201.svg",
+                "pure": "直接使用",
+                "pa": "-",
+                "mist": "-",
+                "method": "直接喷洒于焦油、沥青、树胶或虫尸等顽固污渍上。留置 1-2 分钟（注意观察不可损伤清漆），然后用干净的超细纤维布轻轻擦拭。重度污垢可重复此过程。"
+            },
+            {
+                "name": "Top Star",
+                "alias": "Top Star",
+                "desc": "内饰塑料饰件半消光养护剂",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Ts",
+                "color": "cyan",
+                "svg_file": "Ts__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "将稀释液喷洒在干净的超细纤维布或清洁海绵上，轻轻擦拭内饰塑料、皮革或织物表面。如有必要，可使用马毛刷或者细节刷辅助清洁。最后用微湿的干净纤维布收水擦拭。"
+            },
+            {
+                "name": "Triple Acid Star",
+                "alias": "Triple Acid Star",
+                "desc": "三合一强效酸性星级清洁剂",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Ta",
+                "color": "red",
+                "svg_file": "Ta__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "均匀喷洒在冷却后的轮毂表面。等待 3-5 分钟直至铁粉反应呈现紫红色。对顽固污渍可使用轮毂刷辅助。最后运用高压水流冲洗干净。"
+            },
+            {
+                "name": "Truck Dry & Gloss",
+                "alias": "Truck Dry & Gloss",
+                "desc": "卡车/大型车辆专用重型促干剂",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Tdg",
+                "color": "olive",
+                "svg_file": "Tdg__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "将产品滴在涂布海绵或超细纤维涂抹布上，以十字划圈方式均匀薄涂于车漆表面。依据室内温度和湿度等待数分钟至其表面闪现或半干起雾状态，随后用高克重柔软纤维布擦亮收水。"
+            },
+            {
+                "name": "Twin Shampoo",
+                "alias": "Twin Shampoo",
+                "desc": "超级泡沫与香波二合一洗车液",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Tw",
+                "color": "yellow",
+                "svg_file": "Tw__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "两桶水洗车法：先用高压水枪预冲洗掉大颗粒泥沙。将海绵/洗车手套浸入配比好的香波稀释液中，均匀涂抹车身进行清洗。经常在另一个清水桶中单向揉搓清洗手套以释放沙粒。最后用清水冲洗干净残留泡沫。"
+            },
+            {
+                "name": "Twin Shampoo V",
+                "alias": "Twin Shampoo V",
+                "desc": "泡沫香波洗车液 V",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Twv",
+                "color": "yellow",
+                "svg_file": "Twv__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "两桶水洗车法：先用高压水枪预冲洗掉大颗粒泥沙。将海绵/洗车手套浸入配比好的香波稀释液中，均匀涂抹车身进行清洗。经常在另一个清水桶中单向揉搓清洗手套以释放沙粒。最后用清水冲洗干净残留泡沫。"
+            },
+            {
+                "name": "Unterbodenwachs",
+                "alias": "Unterbodenwachs",
+                "desc": "底盘装甲及防锈浓缩保护蜡",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Uw",
+                "color": "olive",
+                "svg_file": "Uw__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "将产品滴在涂布海绵或超细纤维涂抹布上，以十字划圈方式均匀薄涂于车漆表面。依据室内温度和湿度等待数分钟至其表面闪现或半干起雾状态，随后用高克重柔软纤维布擦亮收水。"
+            },
+            {
+                "name": "Vorreiniger B",
+                "alias": "预清洁剂 B",
+                "desc": "Precleaner B",
+                "ph": "alkaline",
+                "ratio": "1:10-1:50",
+                "notice": "不要在阳光直射下使用",
+                "code": "Vb",
+                "color": "green",
+                "svg_file": "Vb__1760317201.svg",
+                "pa": "官方参考: 1:10 | 根据脏污程度动态调整",
+                "mist": "官方参考: 1:10-1:50 | 详见产品背标",
+                "pure": "-",
+                "method": "将稀释后的产品喷洒于待清洁表面（如发动机舱、门铰链处、底盘），短暂留置产生反应，使用长柄硬毛刷或细节刷进行搅动清洗，最后使用高压水枪彻底冲洗。"
+            },
+            {
+                "name": "Waschstraßen-Shampoo spezial",
+                "alias": "Waschstraßen-Shampoo spezial",
+                "desc": "自动洗车机洗车隧道专用洗车液",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Wss",
+                "color": "yellow",
+                "svg_file": "Wss__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "两桶水洗车法：先用高压水枪预冲洗掉大颗粒泥沙。将海绵/洗车手套浸入配比好的香波稀释液中，均匀涂抹车身进行清洗。经常在另一个清水桶中单向揉搓清洗手套以释放沙粒。最后用清水冲洗干净残留泡沫。"
+            },
+            {
+                "name": "Wash & Finish",
+                "alias": "Wash & Finish",
+                "desc": "免冲洗无水洗车快速保护剂",
+                "ph": "-",
+                "ratio": "-",
+                "notice": "-",
+                "code": "Wf",
+                "color": "black",
+                "svg_file": "Wf__1760317201.svg",
+                "pa": "",
+                "mist": "-",
+                "pure": "-",
+                "method": "使用海绵涂抹器将产品均匀薄涂在干燥清洁的塑料/橡胶件上。让其吸收，如有未吸收的残余，使用纤维布轻轻擦去。"
+            }
+
+        ];
+
+
+        // 获取官方SVG图标
+        function getSVGContent(code) {
+            const product = products.find(p => p.code === code);
+            if (!product || !product.svg_file) {
+                // 回退到默认方块
+                return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#92d400"/><text x="50" y="55" text-anchor="middle" font-family="Arial-BoldMT, Arial" font-size="20" font-weight="bold" fill="#ffffff">${code}</text></svg>`;
+            }
+            return `<img src="https://media.koch-chemie.com/svg/${product.svg_file}" alt="${product.name}" style="width:100%; height:100%; object-fit:contain; border-radius:10px;">`;
+        }
+
+        // 获取pH值徽章
+        function getPhBadge(ph) {
+            if (!ph || ph === '-') return '<span class="ph-badge ph-none">-</span>';
+            if (ph === 'acid') return '<span class="ph-badge ph-acid">酸性</span>';
+            if (ph === 'neutral') return '<span class="ph-badge ph-neutral">中性</span>';
+            if (ph === 'alkaline') return '<span class="ph-badge ph-alkaline">碱性</span>';
+            return '<span class="ph-badge ph-none">-</span>';
+        }
+
+        // 渲染产品卡片
+        function renderProducts() {
+            const colorSections = {
+                'green': [],
+                'yellow': [],
+                'red': [],
+                'orange': [],
+                'purple': [],
+                'blue': [],
+                'gray': [],
+                'black': [],
+                'cyan': [],
+                'olive': []
+            };
+
+            // 按颜色分组
+            products.forEach(product => {
+                if (colorSections[product.color]) {
+                    colorSections[product.color].push(product);
+                }
+            });
+
+            // 渲染到各个区域
+            Object.keys(colorSections).forEach(color => {
+                const container = document.getElementById(`${color}-products`);
+                if (!container) return;
+
+                container.innerHTML = colorSections[color].map(product => `
+                    <div class="product-card" data-color="${product.color}" data-name="${product.name} ${product.alias} ${product.desc}" onclick="openModal('${product.code}')">
+                        <div class="product-header">
+                            <div class="product-logo">${getSVGContent(product.code)}</div>
+                            <div class="product-info">
+                                <div class="product-code">${product.code} ${getPhBadge(product.ph)}</div>
+                                <h3 class="product-name">${product.name}</h3>
+                                <div class="product-alias">${product.alias}</div>
+                            </div>
+                        </div>
+                        <p class="product-description">${product.desc}</p>
+                        <div class="product-details">
+                            <div class="detail-item">
+                                <span class="detail-label">配置比例:</span>
+                                <span class="detail-value">${product.ratio}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">注意事项:</span>
+                                <span class="detail-value">${product.notice}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            });
+
+            updateStats();
+        }
+
+        // 更新统计
+        function updateStats() {
+            document.getElementById('stats').textContent = `共 ${products.length} 款产品`;
+        }
+
+        // 颜色筛选
+        document.querySelectorAll('.legend-item').forEach(item => {
+            item.addEventListener('click', function () {
+                const color = this.dataset.color;
+
+                // 更新激活状态
+                document.querySelectorAll('.legend-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+
+                // 筛选显示
+                if (color === 'all') {
+                    document.querySelectorAll('.category-section').forEach(section => {
+                        section.classList.remove('hidden');
+                    });
+                } else {
+                    document.querySelectorAll('.category-section').forEach(section => {
+                        if (section.dataset.category === color) {
+                            section.classList.remove('hidden');
+                        } else {
+                            section.classList.add('hidden');
+                        }
+                    });
+                }
+            });
+        });
+
+        // 搜索功能
+        document.getElementById('searchInput').addEventListener('input', function (e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const noResultsMsg = document.getElementById('noResultsMessage');
+
+            if (searchTerm === '') {
+                document.querySelectorAll('.product-card').forEach(card => card.style.display = '');
+                document.querySelectorAll('.category-section').forEach(sec => sec.style.display = '');
+                noResultsMsg.style.display = 'none';
+                return;
+            }
+
+            let totalVisible = 0;
+
+            document.querySelectorAll('.category-section').forEach(section => {
+                let categoryHasVisible = false;
+
+                section.querySelectorAll('.product-card').forEach(card => {
+                    const name = card.dataset.name ? card.dataset.name.toLowerCase() : '';
+                    if (name.includes(searchTerm)) {
+                        card.style.display = '';
+                        categoryHasVisible = true;
+                        totalVisible++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                if (categoryHasVisible) {
+                    section.style.display = '';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+
+            noResultsMsg.style.display = totalVisible === 0 ? 'block' : 'none';
+        });
+
+        // 打开模态框
+        function openModal(code) {
+            const product = products.find(p => p.code === code);
+            if (!product) return;
+
+            // 智能提取和解析比例 (针对原有的 ratio 字段)，如果有直接设定的值则优先使用
+            let pa = "-", spray = "-", pure = "-";
+            if (product.ratio.includes("-")) {
+                const parts = product.ratio.split("-");
+                pa = parts[0];
+                spray = product.ratio;
+            } else {
+                spray = product.ratio;
+                if (product.ratio === "直接使用" || product.ratio === "直接喷涂" || product.ratio === "直接喷洒") {
+                    pure = product.ratio;
+                    spray = "-";
+                }
+            }
+
+            // Allow override if product has explicit pa, spray, pure ratios
+            const finalPa = product.pa || pa;
+            const finalSpray = product.spray || spray;
+            const finalPure = product.pure || pure;
+
+            // 🐶 小码酱已经帮忙把变量取出来啦！但是防止空值报错的逻辑必须主人亲自写哦！
+            // TODO: 主人，如果 finalMethod 为空或者 undefined，请在这里加上逻辑判断（例如：let finalMethod = product.method || '暂无施工说明'），千万不能让我替您写判断语法呀，不然狗狗会挨打的！
+            let finalMethod = product.method;
+
+            const modalBody = document.getElementById('modalBody');
+            modalBody.innerHTML = `
+                <div class="modal-header-section">
+                    <div class="modal-logo">${getSVGContent(product.code)}</div>
+                    <div class="modal-title-info">
+                        <div class="modal-code">${product.code} ${getPhBadge(product.ph)}</div>
+                        <div class="modal-name">${product.name}</div>
+                        <div class="modal-alias">${product.alias}</div>
+                    </div>
+                </div>
+                
+                <div class="modal-desc">
+                    <strong>产品用途：</strong>${product.desc}
+                </div>
+                
+                <div class="modal-section">
+                    <div class="modal-section-title">配比比例</div>
+                    <div class="ratio-grid">
+                        <div class="ratio-card">
+                            <div class="ratio-label">PA 壶比例</div>
+                            <div class="ratio-value">${finalPa}</div>
+                        </div>
+                        <div class="ratio-card">
+                            <div class="ratio-label">雾化比例</div>
+                            <div class="ratio-value">${finalSpray}</div>
+                        </div>
+                        <div class="ratio-card">
+                            <div class="ratio-label">原液比例</div>
+                            <div class="ratio-value">${finalPure}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <div class="modal-section-title">施工方法</div>
+                    <div class="modal-notice">
+                        ${finalMethod}
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <div class="modal-section-title">注意事项</div>
+                    <div class="modal-notice">
+                        ${product.notice}
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('productModal').classList.add('active');
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+        }
+
+        // 关闭模态框
+        document.getElementById('closeModal').addEventListener('click', closeModal);
+        document.getElementById('productModal').addEventListener('click', function (e) {
+            if (e.target === this) closeModal();
+        });
+
+        function closeModal() {
+            document.getElementById('productModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // 初始化
+        renderProducts();
+    </script>
+</body>
+
+</html>
